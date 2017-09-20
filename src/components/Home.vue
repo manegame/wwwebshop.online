@@ -211,7 +211,7 @@
     <footer>
       <div class="box">
         <div class="row" v-for="category in categories">
-          <h2>{{category.name}}</h2>
+          <p>{{category.name}}</p>
           <ul>
             <li v-for="x in category.list">
               <a href="#">
@@ -1023,7 +1023,6 @@ export default {
     },
     checkoutEnded () {
       this.showCheckout = false
-      this.getConditions()
       this.showConditions = true
     },
     sequencePopups () {
@@ -1086,8 +1085,8 @@ export default {
 @import '../style/helpers/_responsive.scss';
 @import '../style/_variables.scss';
 @import '../style/parts/_home.scss';
-@import '../style/parts/_footer.scss';
-@import '../style/parts/_header.scss';
+// @import '../style/parts/_footer.scss';
+// @import '../style/parts/_header.scss';
 @import '../assets/fonts/Museo100-Regular.css';
 @import '../assets/fonts/Museo300-Regular.css';
 @import '../assets/fonts/Museo500-Regular.css';
