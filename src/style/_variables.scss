@@ -1,0 +1,28 @@
+/* Typography */
+$Museo500  : 'Museo500-Regular', Helvetica, Arial, sans-serif;
+$Museo300  : 'Museo300-Regular', Helvetica, Arial, sans-serif;
+$Museo100  : 'Museo100-Regular', Helvetica, Arial, sans-serif;
+$Museo900  : 'Museo900-Regular', Helvetica, Arial, sans-serif;
+$Museo700  : 'Museo700-Regular', Helvetica, Arial, sans-serif;
+$font-size       : 16px;
+$line-height     : 20px;
+/* Color */
+$black           : #000;
+$white           : #fff;
+$background-color: rgba(20,20,20,1);
+$red: #24bc20;
+
+$grey: rgba(234, 227, 227, 0);
+$border-width    : 1px;
+/* Space */
+$fixed-margin-top: 32px;
+$fixed-margin-bottom: 42px;
+$fixed-margin-sides: 32px;
+$column-margin-top: 60px;
+/* Space: mobile */
+$mobile-fixed-margin-top: 10px;
+$mobile-fixed-margin-bottom: 6px;
+$mobile-fixed-margin-sides: 10px;
+$mobile-column-margin-top: 50px;
+/* Breakpoints */
+$breakpoints     : ( 'small': (max-width: 800px), 'medium': (max-width: 1000px), 'large': (min-width: 1600px), 'short': (max-height: 700px), );

@@ -1,0 +1,53 @@
+.home {
+  header {
+    background: $background-color;
+    height: 10vh;
+    img {
+      width: auto;
+      height: 80%;
+      margin: 10px;
+    }
+  }
+}
+
+.splash {
+  header {
+    position: absolute;
+    z-index: 10;
+    height: 6vh;
+    // border: 1px solid $black outset;
+    width: 100vw;
+  }
+}
+
+header {
+  .user {
+    position: absolute;
+    width: 10vh;
+    height: 10vh;
+    right: 0;
+    top: 0;
+    color: white;
+    text-align: center;
+    > p {
+
+    }
+    .counter {
+      width: 6vh;
+      height: 6vh;
+      border: 1px solid white;
+      border-radius: 10vh;
+      background: $black;
+      position: absolute;
+      top: 2vh;
+      right: 2vh;
+      text-align: center;
+      cursor: pointer;
+      user-select: none;
+      p {
+        display: inline-block;
+        line-height: 6vh;
+      }
+    }
+  }
+}

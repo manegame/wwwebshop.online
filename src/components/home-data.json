@@ -1,0 +1,275 @@
+{
+  "homeData": {  
+    msg: '',
+    showVideo: true,
+    showQuestionnaire: false,
+    qC: 0,
+    showProduct: false,
+    showPayment: false,
+    popUp: false,
+    videoPop: false,
+    isMinimized: false,
+    comeBack: false,
+    userInteract: false,
+    patienceCount: 88,
+    parentMsg: '',
+    video: {
+      sources: [{
+        src: './static/web-shop-1.mp4',
+        type: 'video/mp4'
+      }],
+      options: {
+        controls: false,
+        autoplay: true,
+        loop: true,
+        volume: 0.1,
+        muted: true
+      }
+    },
+    videopopup: {
+      sources: [{
+        src: './static/avocado.mp4',
+        type: 'video/mp4'
+      }],
+      options: {
+        autoplay: true,
+        loop: true,
+        volume: 0.1,
+        muted: true
+      }
+    },
+    popups: [
+      {
+        'title': '',
+        'text': 'Hi 😀  Have a look around! Let us know if you have any questions.',
+        'class': 'invite'
+      },
+      {
+        'title': '',
+        'text': 'Are you sure that\'s the answer you were thinking of?',
+        'class': 'warning'
+      },
+      {
+        'title': '',
+        'text': 'Free download!',
+        'class': 'freebie'
+      }
+    ],
+    products: [
+      {
+        'title': 'Pet Petter',
+        'src': './static/pet-petter.jpg'
+      },
+      {
+        'title': 'Pet Petter',
+        'src': './static/pet-petter.jpg'
+      },
+      {
+        'title': 'Shoe Openings',
+        'src': './static/shoe.jpg'
+      },
+      {
+        'title': 'Snowball Stomper',
+        'src': './static/snowball.jpg'
+      }
+    ],
+    questions: [
+      {
+        q: 'What are you looking for?',
+        a: ['Service', 'Product', 'Shoes', 'CCC'],
+        type: 'option'
+      },
+      {
+        q: 'What is your first name?',
+        a: [''],
+        type: 'textbox'
+      },
+      {
+        q: 'Which category of products/services are you looking to explore?',
+        a: [ 'Food', 'Clothing', 'Revenge', 'Time management', 'Temperature management', 'Anger management', 'Beauty/wellness', 'Home', 'Kitchen', 'Pets', 'Design', 'Advertising', 'Gardening', 'Other', 'Surprise me' ],
+        type: 'list'
+      },
+      {
+        q: 'What is most important for you in a product or service?',
+        a: [ 'Sleek design', 'Efficiency', 'Easy to use', 'Practicality', 'Cost' ],
+        type: 'list'
+      },
+      {
+        q: 'Pick an aesthetic',
+        a: [ 'Fun', 'grungy', 'minimal', 'bombastic', 'quirky', 'normcore', 'cozy', 'cute', 'dark', 'no preference' ],
+        type: 'list'
+      },
+      {
+        q: 'How do you like your eggs?',
+        a: [ 'I hate eggs', 'poached', 'soft boiled', 'hard boiled', 'fried', 'sunny side up', 'scrambled', 'raw', 'omelette', 'every which way' ],
+        type: 'option'
+      },
+      {
+        q: 'Pick one',
+        a: ['', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''],
+        type: 'checkbox'
+      },
+      {
+        q: 'Which answer is correct?',
+        a: [ 'A', 'B' ],
+        type: 'option'
+      },
+      {
+        q: 'What was your worst job?',
+        a: [''],
+        type: 'textbox'
+      },
+      {
+        q: 'Spot the difference:',
+        a: ['https://suade.org/images/fire_2.jpg', 'http://assets.inhabitat.com/wp-content/blogs.dir/1/files/2016/02/ice-cubes.jpg'],
+        type: 'image'
+      },
+      {
+        q: '1+1=?',
+        a: [ '3', '5', '0', 'apple' ],
+        type: 'option'
+      },
+      {
+        q: 'What is the first name of the person who has the middle name of Herbert?',
+        a: [''],
+        type: 'textbox'
+      },
+      {
+        q: 'What street did you grow up on? ',
+        a: [''],
+        type: 'textbox'
+      },
+      {
+        q: 'Favourite ice cream flavour?',
+        a: [ 'Pistachio' ],
+        type: 'option'
+      },
+      {
+        q: 'What colour underwear are you wearing?',
+        a: [ '' ],
+        type: 'textbox'
+      },
+      {
+        q: 'Find the cheese',
+        a: [ 'http://cosimocavallaro.com/wp-content/uploads/2014/07/cheese_room.jpg' ],
+        type: 'image'
+      },
+      {
+        q: 'Do you often find that you’re always feeling too hot or too cold?',
+        a: [ 'yes!', 'uh, no' ],
+        type: 'option'
+      },
+      {
+        q: 'Does global warming exist?',
+        a: [ 'Baby, it\'s hot wherever I go...' ],
+        type: 'option'
+      },
+      {
+        q: 'Do you like accessories?',
+        a: [ 'yes', 'no', 'I have a lot' ],
+        type: 'option'
+      },
+      {
+        q: 'Do you eat food?',
+        a: [ 'yes', 'I am a rock' ],
+        type: 'option'
+      },
+      {
+        q: 'What is the first name of your favorite relative when you were a child?',
+        a: [ 'Mariska' ],
+        type: 'textbox'
+      },
+      {
+        q: 'What is your greatest fear?',
+        a: [ 'Clowns', 'sharks', 'spiders', 'heights', 'dying', 'myself', 'making bad art', 'Other' ],
+        type: 'option'
+      },
+      {
+        q: 'What was your best grade at primary school?',
+        a: [ 'A', 'B', 'C', 'D', 'E', 'F', 'I went to an experimental school' ],
+        type: 'option'
+      },
+      {
+        q: 'What is your favourite body part?',
+        a: [ 'Big toes', 'hands', 'head', 'belly button', 'butt', 'shoulders', 'elbows', 'knees', 'tail' ],
+        type: 'option'
+      },
+      {
+        q: 'What plant do you associate yourself with?',
+        a: [ 'cactus', 'fern', 'fruit tree', 'weed', 'seaweed', 'one of those with flowers' ],
+        type: 'option'
+      },
+      {
+        q: 'Do you play a sport?',
+        a: [ 'What is sport?', 'yes' ],
+        type: 'option'
+      },
+      {
+        q: 'In what year did you abandon your dreams?',
+        a: [ '' ],
+        type: 'dropdown'
+      },
+      {
+        q: 'What was your favorite unpaid internship?',
+        a: [ '' ],
+        type: 'textbox'
+      },
+      {
+        q: 'What is the name of your favorite canceled TV show?',
+        a: [ '2 broke girls', '24: Legacy', 'Adventure Time', 'Baby Daddy', 'Bates Motel', 'Comedy Bang! Bang!', 'Sense8', 'Sleepy Hollow' ],
+        type: 'option'
+      }
+    ],
+    categories: [
+      {
+        name: 'About',
+        list: [
+          {item: 'Who are we?'},
+          {item: 'Affiliates'},
+          {item: 'News'},
+          {item: 'Terms & Conditions'},
+          {item: 'Privacy & Cookies'}
+        ]
+      },
+      {
+        name: 'Support',
+        list: [
+          {item: 'Customer service'},
+          {item: 'Your orders'},
+          {item: 'Forum'},
+          {item: 'Shipping rates and policies'},
+          {item: 'Return policies'}
+        ]
+      },
+      {
+        name: 'Sales',
+        list: [
+          {item: 'Sell your services'},
+          {item: 'Sell your products'},
+          {item: 'Become a wwwebshop vendor'},
+          {item: 'Advertise your products'}
+        ]
+      },
+      {
+        name: 'Social',
+        list: [
+          {item: 'Blog'},
+          {item: 'Twitter'},
+          {item: 'Facebook'},
+          {item: 'Instagram'},
+          {item: 'Youtube'}
+        ]
+      },
+      {
+        name: 'Careers',
+        list: [
+          {item: 'Content'},
+          {item: 'Customer Service'},
+          {item: 'Marketing'},
+          {item: 'Finance'},
+          {item: 'Business development'}
+        ]
+      }
+    ]
+  }
+}
