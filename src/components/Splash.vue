@@ -4,7 +4,7 @@
       <div class="menu">
         <img id="logo" src="../assets/logo@2x.png"/>
         <p id="links">
-          <a href="instagram.com/wwwwebshop.online">Find Us On Instagram</a> <a href="mailto:wwwebshop.online@gmail.com">Contact Us</a>
+          <a target="_blank" href="https://www.instagram.com/wwwebshop.online/">Find Us On Instagram</a> <a href="mailto:wwwebshop.online@gmail.com">Contact Us</a>
         </p>
       </div>
     </header>
@@ -36,14 +36,13 @@ export default {
       ended: false,
       video: {
         sources: [{
-          src: './static/web-shop-2.mp4',
+          src: './static/splash-video.mp4',
           type: 'video/mp4'
         }],
         options: {
           autoplay: true,
           loop: true,
-          volume: 0.1,
-          muted: true
+          volume: 0.9
         }
       }
     }
@@ -75,7 +74,7 @@ export default {
   height: 100vh;
   .video {
     &.main {
-      width: 80vw;
+      width: 70vw;
       box-shadow: 0px 10px 15px #888888;
       @include center;
     }
@@ -136,8 +135,8 @@ export default {
   #message {
     font-family: $Museo300;
     text-align: center;
-    font-size: $font-size * 2;
-    line-height: $line-height * 2.4;
+    font-size: $font-size * 1.5;
+    line-height: $line-height * 1.7;
     @include screen-size('small') {
       font-size: $font-size;
       line-height: $line-height * 1.4;

@@ -1,7 +1,7 @@
 // CORE
 
 input {
-  -webkit-appearance:none;
+  // -webkit-appearance:none;
   font-family: $Museo500
 }
 
@@ -91,6 +91,69 @@ h2 {
             color: yellow;
           }
         }
+        &.checkout {
+          width: 90vw;
+          height: 75vh;
+          background: rgba(255, 255, 255, 0.73);
+          .basket {
+            > h1 {
+              padding: 1% 2% 0 2%;
+            }
+            width: 70%;
+            float: left;
+            .item {
+              width: auto;
+              border-bottom: 2px solid rgb(217, 217, 217);
+              img {
+                width: auto;
+                height: 30vh;
+                padding: 2%;
+                display: inline-block;
+              }
+              .info {
+                display: inline-block;
+                vertical-align: top;
+                margin: 3% 0 0 0;
+              }
+              &.sneak {
+                img {
+                  height: 12vh;
+                }
+              }
+            }
+          }
+          .bump {
+            width: 30%;
+            height: 80%;
+            float: right;
+            text-align: right;
+            padding: 3%;
+          }
+          .totals {
+            width: 30%;
+            height: auto;
+            float: right;
+            clear: both;
+          }
+        }
+        &.conditions {
+          width: 75vh;
+          height: 75vh;
+          background: rgba(255, 255, 255, 0.73);
+          > h1 {
+            text-align: center;
+          }
+          > p {
+            padding: 2%
+          }
+          textarea {
+            width: 98%;
+            max-width: 98%;
+            height: 66.6%;
+            max-height: 66.6%;
+            margin: 0 1% 1% 1%;
+          }
+        }
       }
       #recommended {
         box-shadow: 0px 10px 15px #888888;
@@ -103,7 +166,6 @@ h2 {
         color: $white;
         border-radius: 10vh;
         background: rgb(66, 252, 230);
-        // padding: 3vh;
         text-align: center;
         display: inline-block;
         vertical-align: middle;

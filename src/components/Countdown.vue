@@ -75,10 +75,10 @@ export default {
   color: $white;
   background: $black;
   border-radius: 2px;
-  padding: 0 4px;
+  padding: 0 2px;
   display: inline-block;
   text-align: right;
-  width: 44px;
+  width: 32px;
   @include screen-size('small') {
     padding: 0 2px;
     width: 22px;
