@@ -203,6 +203,10 @@ h2 {
             color: yellow;
           }
         }
+        &.captcha {
+          width: 90vw;
+          height: 65vh;
+        }
         &.checkout {
           width: 90vw;
           height: 75vh;

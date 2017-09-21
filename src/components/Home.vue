@@ -147,10 +147,13 @@
       <!-- Stage 4: Captcha -->
 
       <template v-if="showCaptcha">
-        <div class="main payment">
+        <div class="main captcha">
           <img class="captcha" :src="this.captchas[cC].src"/>
-          <input type="text" v-model="captcha"/><label>{{captcha}}</label>
+          <input type="text" v-model="captcha"/>
           <input type="submit" @click.stop="captchaEnded"/>
+          <p>
+            {{warning}}
+          </p>
         </div>
       </template>
 
@@ -260,7 +263,7 @@ export default {
     return {
       msg: '',
       showVideo: false,
-      showQuestionnaire: true,
+      showQuestionnaire: false,
       textbox: '',
       checked: [],
       picked: '',
@@ -268,8 +271,9 @@ export default {
       showProduct: false,
       productCount: 10,
       showCaptcha: false,
+      captchaCheck: false,
       checkString: '',
-      showCheckout: false,
+      showCheckout: true,
       showConditions: false,
       popUp: false,
       videoPop: true,
@@ -382,7 +386,7 @@ export default {
         },
         {
           q: 'Spot the difference:',
-          a: [require('../assets/captcha2.png'), 'http://assets.inhabitat.com/wp-content/blogs.dir/1/files/2016/02/ice-cubes.jpg'],
+          a: [ './static/DeviceFocus-3000.jpg', './static/DeviceFocus-3000.jpg' ],
           type: 'image'
         },
         {
@@ -412,7 +416,7 @@ export default {
         },
         {
           q: 'Find the cheese',
-          a: [ require('../assets/captcha2.png') ],
+          a: './static/DeviceFocus-3000.jpg',
           type: 'image'
         },
         {
@@ -480,7 +484,7 @@ export default {
         {
           title: 'Bread Gloves',
           description: 'The perfect gift for the bread lover in your life or someone who just can’t keep their hands out of the food. These bread gloves makes it so easy to make a sandwich  One size fits all! Comes in 4 different flavours!',
-          src: require('../assets/bread-gloves.jpg'),
+          src: './static/bread-gloves.jpg',
           price: 15,
           reviews: [
             {
@@ -542,7 +546,7 @@ export default {
         {
           title: 'Air Conditioned Shoes',
           description: 'Cool shoes for hot people. Go faster and further without even breaking a footsweat.',
-          src: require('../assets/bread-gloves.jpg'),
+          src: './static/bread-gloves.jpg',
           price: 350,
           reviews: [
             {
@@ -963,15 +967,15 @@ export default {
       captchas: [
         {
           value: 'not human',
-          src: require('../assets/captcha.jpg')
+          src: './static/captcha.jpg'
         },
         {
           value: 'pervert we',
-          src: require('../assets/captcha2.png')
+          src: './static/captcha2.png'
         },
         {
           value: 'contend because',
-          src: require('../assets/captcha3.png')
+          src: './static/captcha3.png'
         }
       ],
       categories: [
@@ -1084,8 +1088,15 @@ export default {
       this.showCaptcha = true
     },
     captchaEnded () {
-      this.showCaptcha = false
-      this.showCheckout = true
+      console.log('chceking')
+      if (this.captchaCheck === true) {
+        console.log('next')
+        this.showCaptcha = false
+        this.showCheckout = true
+      } else {
+        console.log('stay')
+        this.warning = 'Try again'
+      }
     },
     checkoutEnded () {
       this.showCheckout = false
@@ -1122,16 +1133,18 @@ export default {
   },
   watch: {
     captcha: function (value) {
-      if (value.length <= 1) {
-        this.checkString = this.setCheck()
-      }
-      if (value === this.checkString) {
-        this.cC++
-        this.captcha = ''
-        console.log(this.cC, this.captchas.length)
-        if (this.cC === this.captchas.length) {
-          console.log('they are the same', this.cC, this.captchas.length)
-          this.captchaEnded()
+      if (this.cC === this.captchas.length) {
+        console.log('they are the same', this.cC, this.captchas.length)
+        this.captchaCheck = true
+      } else {
+        if (value.length <= 1) {
+          this.checkString = this.setCheck()
+        }
+        if (value === this.checkString) {
+          this.cC++
+          this.captcha = ''
+          this.warning = ''
+          console.log(this.cC, this.captchas.length)
         }
       }
     }
