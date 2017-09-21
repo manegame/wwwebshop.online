@@ -10,13 +10,12 @@
 
     <header>
       <img src="../assets/logo-white@2x.png"/>
-      <div class="user">
         <div class="counter">
+          <img src="../assets/bP$.svg" />
           <p id="counter" v-on:click="addCount">
             {{patienceCount}}
           </p>
         </div>
-      </div>
     </header>
 
     <main>
@@ -48,15 +47,22 @@
         <div class="main questionnaire">
 
           <div class="question">
-            Q:
+            <div class="qContainer">
+              <p id="Q">
+                Q:
+              </p>
+            </div>
             <p class="q">
-              {{questions[qC].q}}
+              <span class="inline-helper"></span>{{questions[qC].q}}
             </p>
           </div>
 
           <div class="answer">
-            A:
-
+            <div class="aContainer">
+              <p id="A">
+                A:
+              </p>
+            </div>
             <!-- OPTION -->
             <template v-if="questions[qC].type == 'option'">
               <button v-for="(answer, index) in questions[qC].a.length" @click.stop="checkAnswer(questions[qC].type)">
@@ -84,13 +90,26 @@
               <input type="text" v-model="textbox"/>
               <input type="submit" @click.stop="checkAnswer(questions[qC].type)"/>
             </template>
+            <!-- DROPDOWN YEAR -->
+            <template v-else-if="questions[qC].type == 'dropdown-year'">
+              <div class="dropdown slate">
+                <select>
+                  <option :value="n" v-for="n in 2018">
+                    {{2018-n}}
+                  </option>
+                </select>
+              </div>
+              <input type="submit" @click.stop="checkAnswer(questions[qC].type)"/>
+            </template>
             <!-- DROPDOWN -->
             <template v-else-if="questions[qC].type == 'dropdown'">
-              <select>
-                <option :value="n" v-for="n in 2018">
-                  {{2018-n}}
-                </option>
-              </select>
+              <div class="dropdown slate">
+                <select>
+                  <option v-for="(image, index) in questions[qC].a.length" value="a">
+                    {{questions[qC].a[index]}}
+                  </option>
+                </select>
+              </div>
               <input type="submit" @click.stop="checkAnswer(questions[qC].type)"/>
             </template>
             <!-- TOGGLE -->
@@ -203,9 +222,13 @@
         <div class="main conditions">
           <h1>Terms and Conditions</h1>
           <p>
-            before you continue, you need to accept our terms and conditions
+            Before you continue, please read and accept our terms and conditions
           </p>
-          <textarea v-model="conditions.text" @scroll="userScroll"></textarea>
+          <textarea readonly ref="textArea" v-model="conditions.text" :style="{ fontSize: fontSize + 'px', lineHeight: lineHeight + 'px', fontFamily: fontFamily }" @scroll="userScroll"></textarea>
+          <input type="submit" value="Accept and continue" @click.stop="conditionsEnded">
+          <p>
+            {{this.warning}}
+          </p>
         </div>
       </template>
 
@@ -222,14 +245,6 @@
           <my-video :sources="videopopup.sources" :options="video.options"></my-video>
         </div>
       </template>
-
-      <!-- <template v-if="userInteract">
-        <div>
-          <input v-model="parentMsg">
-          <br>
-          <child v-bind:my-message="parentMsg"></child>
-        </div>
-      </template> -->
 
     </main>
 
@@ -261,7 +276,7 @@ export default {
     return {
       msg: '',
       showVideo: false,
-      showQuestionnaire: false,
+      showQuestionnaire: true,
       textbox: '',
       checked: [],
       picked: '',
@@ -271,8 +286,11 @@ export default {
       showCaptcha: false,
       captchaCheck: false,
       checkString: '',
-      showCheckout: true,
+      showCheckout: false,
       showConditions: false,
+      fontSize: 13,
+      fontFamily: 'Museo100-Regular',
+      lineHeight: 15,
       popUp: false,
       videoPop: true,
       isMinimized: false,
@@ -282,6 +300,7 @@ export default {
       parentMsg: '',
       captcha: '',
       cC: 0,
+      allowEnd: false,
       warning: '',
       video: {
         sources: [
@@ -333,6 +352,11 @@ export default {
       ],
       questions: [
         {
+          q: 'What city do you live in?',
+          a: [ 'The Hague', 'Rotterdam', 'Amsterdam', 'Utrecht', 'Eindhoven', 'Other' ],
+          type: 'dropdown'
+        },
+        {
           q: 'Pick an aesthetic',
           a: [ 'Fun', 'grungy', 'minimal', 'bombastic', 'quirky', 'normcore', 'cozy', 'cute', 'dark', 'no preference' ],
           type: 'toggle'
@@ -340,7 +364,7 @@ export default {
         {
           q: 'In what year did you abandon your dreams?',
           a: [ '' ],
-          type: 'dropdown'
+          type: 'dropdown-year'
         },
         {
           q: 'What are you looking for?',
@@ -369,7 +393,7 @@ export default {
         },
         {
           q: 'Pick one',
-          a: ['', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''],
+          a: [ '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '' ],
           type: 'checkbox'
         },
         {
@@ -414,7 +438,7 @@ export default {
         },
         {
           q: 'Find the cheese',
-          a: './static/DeviceFocus-3000.jpg',
+          a: './static/cheese_room.jpg',
           type: 'image'
         },
         {
@@ -1028,6 +1052,9 @@ export default {
             {item: 'Finance'},
             {item: 'Business development'}
           ]
+        },
+        {
+          name: 'Nothing You Expect, Everything You Deserve®'
         }
       ]
     }
@@ -1041,7 +1068,7 @@ export default {
       this.showQuestionnaire = true
     },
     checkAnswer (value) {
-      if (value === 'option' || value === 'image' || value === 'dropdown') {
+      if (value === 'option' || value === 'image' || value === 'dropdown' || value === 'dropdown-year') {
         console.log('picked an ', value)
         this.nextQuestion()
       }
@@ -1103,6 +1130,14 @@ export default {
       this.showCheckout = false
       this.showConditions = true
     },
+    conditionsEnded () {
+      if (this.allowEnd === true) {
+        this.showConditions = false
+        this.showVideo = true
+      } else {
+        this.warning = 'Please read the terms before you continue'
+      }
+    },
     sequencePopups () {
       setTimeout(() => { this.videoPop = true }, 2000)
     },
@@ -1122,10 +1157,39 @@ export default {
       let amount = 5 - this.products[this.productCount].reviews[index].stars.length
       return Array(amount + 1).join('☆')
     },
-    mouseMove: _.debounce(function () {
+    userScroll: _.throttle(function () {
+      let area = this.$refs.textArea
+      let current = area.scrollTop + area.offsetHeight
+      let full = area.scrollTop + area.offsetHeight
+      let qua = area.scrollHeight / 4
+      let hal = qua * 2
+      let thr = qua * 3
+      if (current <= qua) {
+        this.fontSize += 0.1
+      }
+      if (current >= qua && current <= hal) {
+        this.fontFamily = 'Museo300-Regular'
+        this.fontSize += 1
+        this.lineHeight -= 0.1
+      }
+      if (current >= hal) {
+        this.fontFamily = 'Museo500-Regular'
+        this.fontSize += 2
+        this.lineHeight -= 1
+      }
+      if (current >= thr) {
+        this.fontFamily = 'Museo700-Regular'
+        this.fontSize += 3
+        this.lineHeight -= 3
+      }
+      if (area.scrollHeight <= full) {
+        this.allowEnd = true
+      }
+    }, 100),
+    mouseMove: _.throttle(function () {
       // this.comeBack = false
       // setTimeout(this.showAlert, 10000)
-    }, 300)
+    }, 50)
   },
   computed: {
     totalAmount () {
@@ -1151,7 +1215,7 @@ export default {
     }
   },
   created () {
-    window.addEventListener('mousemove', this.mouseMove)
+    // window.addEventListener('mousemove', this.mouseMove)
   }
 }
 </script>

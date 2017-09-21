@@ -3,6 +3,10 @@ body {
   overflow-y: auto;
 }
 
+textarea {
+  font-family: $Museo100;
+}
+
 // FOOTER
 
 footer {
@@ -45,54 +49,57 @@ footer {
   }
 }
 
-.splash {
-  header {
-    position: absolute;
-    z-index: 10;
-    height: 6vh;
-    // border: 1px solid $black outset;
-    width: 100vw;
-  }
-}
+// .splash {
+//   header {
+//     position: absolute;
+//     z-index: 10;
+//     height: 6vh;
+//     // border: 1px solid $black outset;
+//     width: 100vw;
+//   }
+// }
 
 header {
-  .user {
+  background: $background-color;
+  height: 10vh;
+  > img {
+    width: auto;
+    height: 80%;
+    margin: 10px;
+  }
+  .counter {
     position: absolute;
-    width: 10vh;
-    height: 10vh;
-    right: 0;
-    top: 0;
-    color: white;
-    text-align: center;
-    > p {
+    width: 120px;
+    height: 6vh;
+    border-radius: 10vh;
+    background: $white;
+    color: $black;
+    font-size: $font-size * 1.3;
+    top: 2vh;
+    right: 2vh;
+    padding: 0 22px 0 22px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    user-select: none;
+    cursor: pointer;
+    img {
+      vertical-align: middle;
+      height: 34px;
+      width: auto;
     }
-    .counter {
-      width: 6vh;
-      height: 6vh;
-      border: 1px solid white;
-      border-radius: 10vh;
-      background: $black;
-      position: absolute;
-      top: 2vh;
-      right: 2vh;
-      text-align: center;
-      cursor: pointer;
-      user-select: none;
-      p {
-        display: inline-block;
-        line-height: 6vh;
-      }
+    p {
+      display: inline-block;
+      line-height: 6vh;
     }
   }
 }
 
+#currency {
+
+}
 
 // CORE
-
-input {
-  // -webkit-appearance:none;
-  font-family: $Museo500
-}
 
 h1 {
   line-height: $line-height * 3;
@@ -113,22 +120,13 @@ h2 {
   -moz-osx-font-smoothing: grayscale;
   text-align: left;
   .home {
-    header {
-      background: $background-color;
-      height: 10vh;
-      img {
-        width: auto;
-        height: 80%;
-        margin: 10px;
-      }
-    }
     main {
       height: 90vh;
       background: url('../assets/bg@2x.png');
       background-size: cover;
       .main {
         position: absolute;
-        background: $white;
+        background: rgba(255, 255, 255, 0.73);
         color: $black;
         @include center;
         box-shadow: 0px 10px 15px #888888;
@@ -151,6 +149,21 @@ h2 {
           text-align: center;
           transition: all 1s ease-out;
           overflow: hidden;
+          .question {
+            width: 100%;
+            height: 20%;
+            border-bottom: $theme-border;
+            .q {
+              height: 100%;
+              font-size: $font-size * 3;
+              line-height: $line-height * 3;
+              display: inline-block;
+              vertical-align: middle;
+            }
+          }
+          .answer {
+
+          }
           img {
             width: 40%;
             height: auto;
@@ -210,7 +223,6 @@ h2 {
         &.checkout {
           width: 90vw;
           height: 75vh;
-          background: rgba(255, 255, 255, 0.73);
           .basket {
             > h1 {
               padding: 1% 2% 0 2%;
@@ -219,7 +231,7 @@ h2 {
             float: left;
             .item {
               width: auto;
-              border-bottom: 2px solid rgb(217, 217, 217);
+              border-bottom: $theme-border;
               img {
                 width: auto;
                 height: 30vh;
@@ -324,6 +336,7 @@ h2 {
         transition: all .3s ease;
         &.popup {
           width: 30vw;
+          height: 100px;
           top: 2vh;
           right: 10vh !important;
         }
@@ -384,4 +397,85 @@ h1 {
   display: inline-block;
   height: 100%;
   vertical-align: middle;
+}
+
+// INPUT STYLES
+
+input:focus,
+select:focus,
+textarea:focus,
+button:focus {
+    outline: none;
+}
+
+input[type="submit"] {
+  -webkit-appearance: none;
+  border: none;
+}
+
+input[type="submit"] {
+  background: $theme-grey;
+  color: rgb(88, 88, 88);
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 20%;
+  height: $line-height * 3;
+  font-size: $font-size * 2;
+}
+
+.dropdown {
+   height: $line-height * 4;
+   overflow: hidden;
+   width: 60vw;
+   display: block;
+   @include center-horizontal;
+   top: 23%;
+
+}
+
+.dropdown select {
+   background: transparent;
+   border: none;
+   font-family: $Museo300;
+   height: $line-height * 4;
+   width: 60vw;
+}
+
+.dropdown.slate {
+  //  background: url(../assets/downarrow.jpg) no-repeat right center;
+   background-color: $theme-grey;
+  //  height: 34px;
+   height: $line-height * 4;
+  //  width: 240px;
+   width: 60vw;
+}
+
+.dropdown.slate select {
+   border: 1px solid #ccc;
+   font-size: $font-size * 3.5;
+  //  height: 34px;
+   height: $line-height * 4;
+   width: 60vw;
+}
+
+// MORE QnA
+
+.qContainer, .aContainer {
+  padding-left: $fixed-margin-sides;
+  text-align: left;
+  display: inline-block;
+  float: left;
+  #Q, #A {
+    height: 100%;
+    width: auto;
+    font-size: 100px;
+    line-height: 100px;
+    color: $theme-grey;
+  }
+}
+
+input {
+  // -webkit-appearance:none;
+  font-family: $Museo500
 }
