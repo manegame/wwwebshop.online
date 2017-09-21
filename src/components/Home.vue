@@ -21,11 +21,23 @@
 
     <main>
 
-      <!-- Stage 1: Video -->
-      <template v-if="showVideo">
+      <!-- Stage 1: Video (Original) -->
+      <!-- <template v-if="showVideo">
         <div class="video main">
           <div class="container">
             <my-video :sources="video.sources" :options="video.options" @ended="videoEnded"></my-video>
+          </div>
+        </div>
+      </template> -->
+
+      <!-- Stage 1: Video (Alt) -->
+      <template v-if="showVideo">
+        <div class="video main">
+          <div class="container">
+            <video controls autoplay v-on:ended="videoEnded">
+              <source src="../../static/intro-1080.mp4" type="video/mp4"/>
+              <source src="../../static/intro-720.mp4" type="video/mp4"/>
+            </video>
           </div>
         </div>
       </template>
@@ -227,7 +239,7 @@
 </template>
 
 <script>
-import myVideo from 'vue-video'
+// import myVideo from 'vue-video'
 import _ from 'lodash'
 
 export default {
@@ -1000,7 +1012,7 @@ export default {
     }
   },
   components: {
-    myVideo
+    // myVideo
   },
   methods: {
     videoEnded () {
