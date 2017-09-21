@@ -1,3 +1,8 @@
+body {
+  overflow: hidden;
+  overflow-y: auto;
+}
+
 // FOOTER
 
 footer {
@@ -40,20 +45,6 @@ footer {
   }
 }
 
-// HEAD
-
-.home {
-  header {
-    background: $background-color;
-    height: 10vh;
-    img {
-      width: auto;
-      height: 80%;
-      margin: 10px;
-    }
-  }
-}
-
 .splash {
   header {
     position: absolute;
@@ -74,7 +65,6 @@ header {
     color: white;
     text-align: center;
     > p {
-
     }
     .counter {
       width: 6vh;
@@ -115,7 +105,7 @@ h2 {
 
 #app {
   width: 100vw;
-  height: 100vh;
+  height: auto;
   font-family: $Museo500 !important;
   font-size: $font-size;
   line-height: $line-height;
@@ -123,21 +113,41 @@ h2 {
   -moz-osx-font-smoothing: grayscale;
   text-align: left;
   .home {
+    header {
+      background: $background-color;
+      height: 10vh;
+      img {
+        width: auto;
+        height: 80%;
+        margin: 10px;
+      }
+    }
     main {
       height: 90vh;
       background: url('../assets/bg@2x.png');
       background-size: cover;
       .main {
         position: absolute;
-        @include center;
         background: $white;
         color: $black;
+        @include center;
         box-shadow: 0px 10px 15px #888888;
+        &.video {
+          display: block;
+          width: 65vw;
+          height: 36vw;
+          .container {
+            position: absolute;
+            width: 100%;
+            height: auto;
+          }
+        }
         &.questionnaire {
           width: 80vw;
           height: 70vh;
           text-align: center;
           transition: all 1s ease-out;
+          overflow: hidden;
           img {
             width: 40%;
             height: auto;
@@ -305,17 +315,6 @@ h2 {
           line-height: $line-height * 2;
         }
         transition: all .3s ease;
-      }
-      .video {
-        position: absolute;
-        width: 65vw;
-        background: $white;
-        color: $white;
-        text-align: center;
-        transition: all 1s ease-out;
-        .container {
-          background: $white;
-        }
         &.popup {
           width: 30vw;
           top: 2vh;

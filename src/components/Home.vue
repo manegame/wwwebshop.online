@@ -235,14 +235,14 @@ export default {
   data () {
     return {
       msg: '',
-      showVideo: false,
+      showVideo: true,
       showQuestionnaire: false,
       qC: 0,
       showProduct: false,
-      productCount: 0,
+      productCount: 10,
       showCaptcha: false,
       checkString: '',
-      showCheckout: true,
+      showCheckout: false,
       showConditions: false,
       popUp: false,
       videoPop: false,
@@ -254,10 +254,16 @@ export default {
       captcha: '',
       cC: 0,
       video: {
-        sources: [{
-          src: './static/intro.mp4',
-          type: 'video/mp4'
-        }],
+        sources: [
+          {
+            src: './static/splash-video.mp4',
+            type: 'video/mp4'
+          },
+          {
+            src: './static/splash-video.mp4',
+            type: 'video/mp4'
+          }
+        ],
         options: {
           controls: false,
           autoplay: true,
