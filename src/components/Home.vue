@@ -76,7 +76,7 @@
             </template>
             <!-- CHECKBOX -->
             <template v-else-if="questions[qC].type == 'checkbox'">
-              <input v-for="(toggle, index) in questions[qC].a.length" type="checkbox" v-model="checked"/>
+              <input v-for="(checkbox, index) in questions[qC].a.length" type="checkbox" v-model="checked"/>
               <input type="submit" @click.stop="checkAnswer(questions[qC].type)"/>
             </template>
             <!-- TEXTBOX -->
@@ -91,6 +91,15 @@
                   {{2018-n}}
                 </option>
               </select>
+              <input type="submit" @click.stop="checkAnswer(questions[qC].type)"/>
+            </template>
+            <!-- TOGGLE -->
+            <template v-else-if="questions[qC].type == 'toggle'">
+              <form v-for="(toggle, index) in questions[qC].a.length">
+                <input type="radio" :id="'radio'+index" :value="questions[qC].a[index]" v-model="picked">
+                <label :for="questions[qC].a[index]">{{questions[qC].a[index]}}</label>
+                <br>
+              </form>
               <input type="submit" @click.stop="checkAnswer(questions[qC].type)"/>
             </template>
 
@@ -254,6 +263,7 @@ export default {
       showQuestionnaire: true,
       textbox: '',
       checked: [],
+      picked: '',
       qC: 0,
       showProduct: false,
       productCount: 10,
@@ -321,6 +331,11 @@ export default {
       ],
       questions: [
         {
+          q: 'Pick an aesthetic',
+          a: [ 'Fun', 'grungy', 'minimal', 'bombastic', 'quirky', 'normcore', 'cozy', 'cute', 'dark', 'no preference' ],
+          type: 'toggle'
+        },
+        {
           q: 'In what year did you abandon your dreams?',
           a: [ '' ],
           type: 'dropdown'
@@ -343,11 +358,6 @@ export default {
         {
           q: 'What is most important for you in a product or service?',
           a: [ 'Sleek design', 'Efficiency', 'Easy to use', 'Practicality', 'Cost' ],
-          type: 'list'
-        },
-        {
-          q: 'Pick an aesthetic',
-          a: [ 'Fun', 'grungy', 'minimal', 'bombastic', 'quirky', 'normcore', 'cozy', 'cute', 'dark', 'no preference' ],
           type: 'list'
         },
         {
@@ -1037,6 +1047,14 @@ export default {
           this.warning = ''
           this.textbox = ''
           this.nextQuestion()
+        }
+      }
+      if (value === 'toggle') {
+        if (this.picked !== '') {
+          this.warning = ''
+          this.nextQuestion()
+        } else {
+          this.warning = 'Come on, please pick one'
         }
       }
       if (value === 'list' || value === 'checkbox') {
