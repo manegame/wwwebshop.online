@@ -34,7 +34,7 @@
       <template v-if="showVideo">
         <div class="video main">
           <div class="container">
-            <video controls autoplay v-on:ended="videoEnded">
+            <video controls muted autoplay v-on:ended="videoEnded" playsinline>
               <source src="../../static/intro-1080.mp4" type="video/mp4"/>
               <source src="../../static/intro-720.mp4" type="video/mp4"/>
             </video>
@@ -59,31 +59,30 @@
 
             <!-- OPTION -->
             <template v-if="questions[qC].type == 'option'">
-              <!-- Add option component -->
-              <button v-for="(answer, index) in questions[qC].a.length" @click="nextQuestion">
+              <button v-for="(answer, index) in questions[qC].a.length" @click.stop="checkAnswer(questions[qC].type)">
                 {{questions[qC].a[index]}}
               </button>
             </template>
             <!-- LIST -->
             <template v-if="questions[qC].type == 'list'">
               <form v-for="(item, index) in questions[qC].a.length">
-                <input type="checkbox"/><label>{{questions[qC].a[index]}}</label>
+                <input type="checkbox" :value="questions[qC].a[index]" v-model="checked"/><label>{{questions[qC].a[index]}}</label>
               </form>
-              <input type="submit" @click.stop="nextQuestion"/>
+              <input type="submit" @click.stop="checkAnswer(questions[qC].type)"/>
             </template>
             <!-- IMAGE -->
             <template v-else-if="questions[qC].type == 'image'">
-              <img v-for="(image, index) in questions[qC].a.length" v-bind:src="questions[qC].a[index]" @click.stop="nextQuestion"/>
+              <img v-for="(image, index) in questions[qC].a.length" v-bind:src="questions[qC].a[index]" @click.stop="checkAnswer(questions[qC].type)"/>
             </template>
             <!-- CHECKBOX -->
             <template v-else-if="questions[qC].type == 'checkbox'">
-              <input v-for="(toggle, index) in questions[qC].a.length" type="checkbox"/>
-              <input type="submit" @click.stop="nextQuestion"/>
+              <input v-for="(toggle, index) in questions[qC].a.length" type="checkbox" v-model="checked"/>
+              <input type="submit" @click.stop="checkAnswer(questions[qC].type)"/>
             </template>
             <!-- TEXTBOX -->
             <template v-else-if="questions[qC].type == 'textbox'">
-              <input type="text" />
-              <input type="submit" @click.stop="nextQuestion"/>
+              <input type="text" v-model="textbox"/>
+              <input type="submit" @click.stop="checkAnswer(questions[qC].type)"/>
             </template>
             <!-- DROPDOWN -->
             <template v-else-if="questions[qC].type == 'dropdown'">
@@ -92,8 +91,12 @@
                   {{2018-n}}
                 </option>
               </select>
-              <input type="submit" @click.stop="nextQuestion"/>
+              <input type="submit" @click.stop="checkAnswer(questions[qC].type)"/>
             </template>
+
+            <p id="warn">
+              {{warning}}
+            </p>
           </div>
         </div>
       </template>
@@ -247,8 +250,10 @@ export default {
   data () {
     return {
       msg: '',
-      showVideo: true,
-      showQuestionnaire: false,
+      showVideo: false,
+      showQuestionnaire: true,
+      textbox: '',
+      checked: [],
       qC: 0,
       showProduct: false,
       productCount: 10,
@@ -257,7 +262,7 @@ export default {
       showCheckout: false,
       showConditions: false,
       popUp: false,
-      videoPop: false,
+      videoPop: true,
       isMinimized: false,
       comeBack: false,
       userInteract: false,
@@ -265,6 +270,7 @@ export default {
       parentMsg: '',
       captcha: '',
       cC: 0,
+      warning: '',
       video: {
         sources: [
           {
@@ -315,6 +321,11 @@ export default {
       ],
       questions: [
         {
+          q: 'In what year did you abandon your dreams?',
+          a: [ '' ],
+          type: 'dropdown'
+        },
+        {
           q: 'What are you looking for?',
           a: ['Service', 'Product', 'Shoes'],
           type: 'option'
@@ -361,7 +372,7 @@ export default {
         },
         {
           q: 'Spot the difference:',
-          a: ['https://suade.org/images/fire_2.jpg', 'http://assets.inhabitat.com/wp-content/blogs.dir/1/files/2016/02/ice-cubes.jpg'],
+          a: [require('../assets/captcha2.png'), 'http://assets.inhabitat.com/wp-content/blogs.dir/1/files/2016/02/ice-cubes.jpg'],
           type: 'image'
         },
         {
@@ -391,7 +402,7 @@ export default {
         },
         {
           q: 'Find the cheese',
-          a: [ 'http://cosimocavallaro.com/wp-content/uploads/2014/07/cheese_room.jpg' ],
+          a: [ require('../assets/captcha2.png') ],
           type: 'image'
         },
         {
@@ -443,11 +454,6 @@ export default {
           q: 'Do you play a sport?',
           a: [ 'What is sport?', 'yes' ],
           type: 'option'
-        },
-        {
-          q: 'In what year did you abandon your dreams?',
-          a: [ '' ],
-          type: 'dropdown'
         },
         {
           q: 'What was your favorite unpaid internship?',
@@ -1019,6 +1025,30 @@ export default {
       this.showVideo = false
       this.showQuestionnaire = true
     },
+    checkAnswer (value) {
+      if (value === 'option' || value === 'image' || value === 'dropdown') {
+        console.log('picked an ', value)
+        this.nextQuestion()
+      }
+      if (value === 'textbox') {
+        if (this.textbox.length <= 2) {
+          this.warning = 'Please elaborate'
+        } else {
+          this.warning = ''
+          this.textbox = ''
+          this.nextQuestion()
+        }
+      }
+      if (value === 'list' || value === 'checkbox') {
+        if (this.checked.length < 1) {
+          this.warning = 'Select at least one answer'
+        } else {
+          this.warning = ''
+          this.textbox = ''
+          this.nextQuestion()
+        }
+      }
+    },
     nextQuestion () {
       if (this.qC < this.questions.length - 1) {
         this.qC++
@@ -1070,8 +1100,6 @@ export default {
   computed: {
     totalAmount () {
       return this.products[this.productCount].price + this.products[this.productCount + 1].price
-    },
-    conditions () {
     }
   },
   watch: {
