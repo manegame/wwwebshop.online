@@ -1,5 +1,6 @@
 <template>
   <div class="home">
+
     <template v-if="comeBack">
       <div id="alert">
         <p>
@@ -19,21 +20,11 @@
     </header>
 
     <main>
-
-      <!-- Stage 1: Video (Original) -->
-      <!-- <template v-if="showVideo">
-        <div class="video main">
-          <div class="container">
-            <my-video :sources="video.sources" :options="video.options" @ended="videoEnded"></my-video>
-          </div>
-        </div>
-      </template> -->
-
       <!-- Stage 1: Video (Alt) -->
       <template v-if="showVideo">
         <div class="video main">
           <div class="container">
-            <video controls muted autoplay v-on:ended="videoEnded" playsinline>
+            <video controls v-on:ended="videoEnded" playsinline>
               <source src="../../static/intro-1080.mp4" type="video/mp4"/>
               <source src="../../static/intro-720.mp4" type="video/mp4"/>
             </video>
@@ -42,7 +33,6 @@
       </template>
 
       <!-- Stage 2: Questionnaire -->
-
       <template v-if="showQuestionnaire">
         <div class="main questionnaire">
 
@@ -78,7 +68,9 @@
             </template>
             <!-- IMAGE -->
             <template v-else-if="questions[qC].type == 'image'">
-              <img v-for="(image, index) in questions[qC].a.length" v-bind:src="questions[qC].a[index]" @click.stop="checkAnswer(questions[qC].type)"/>
+              <div class="imgC">
+                <img v-for="(image, index) in questions[qC].a.length" v-bind:src="questions[qC].a[index]" @click.stop="checkAnswer(questions[qC].type)"/>
+              </div>
             </template>
             <!-- CHECKBOX -->
             <template v-else-if="questions[qC].type == 'checkbox'">
@@ -114,11 +106,12 @@
             </template>
             <!-- TOGGLE -->
             <template v-else-if="questions[qC].type == 'toggle'">
-              <form v-for="(toggle, index) in questions[qC].a.length">
-                <input type="radio" :id="'radio'+index" :value="questions[qC].a[index]" v-model="picked">
-                <label :for="questions[qC].a[index]">{{questions[qC].a[index]}}</label>
-                <br>
-              </form>
+              <template v-for="(toggle, index) in questions[qC].a.length">
+                <form>
+                  <input type="radio" :id="'radio'+index" :value="questions[qC].a[index]" v-model="picked">
+                  <label :for="questions[qC].a[index]">{{questions[qC].a[index]}}</label>
+                </form>
+              </template>
               <input type="submit" @click.stop="checkAnswer(questions[qC].type)"/>
             </template>
 
@@ -130,15 +123,13 @@
       </template>
 
       <!-- Stage 3: Product -->
-
       <template v-if="showProduct">
         <div id="recommended">
           <p>
-            <span class="inline-helper"></span>Recommended 4 U!
+            <span class="inline-helper"></span>Recommended <br /> 4 U!
           </p>
         </div>
       </template>
-
       <template v-if="showProduct">
         <div class="main product">
           <div class="left">
@@ -170,7 +161,7 @@
           <img class="captcha" :src="this.captchas[cC].src"/>
           <input type="text" v-model="captcha"/>
           <input type="submit" @click.stop="captchaEnded"/>
-          <p>
+          <p id="warn">
             {{warning}}
           </p>
         </div>
@@ -211,7 +202,7 @@
             <h2>
               Your Wallet: €{{this.patienceCount}}
             </h2>
-            <input type="submit" value="Buy" @click="checkoutEnded"/>
+            <input id="buy" type="submit" value="Buy" @click="checkoutEnded"/>
           </div>
         </div>
       </template>
@@ -276,13 +267,13 @@ export default {
     return {
       msg: '',
       showVideo: false,
-      showQuestionnaire: true,
+      showQuestionnaire: false,
       textbox: '',
       checked: [],
       picked: '',
       qC: 0,
-      showProduct: false,
-      productCount: 10,
+      showProduct: true,
+      productCount: 0,
       showCaptcha: false,
       captchaCheck: false,
       checkString: '',
@@ -296,7 +287,8 @@ export default {
       isMinimized: false,
       comeBack: false,
       userInteract: false,
-      patienceCount: 88,
+      patienceCount: 0,
+      patienceAdd: '',
       parentMsg: '',
       captcha: '',
       cC: 0,
@@ -377,7 +369,7 @@ export default {
           type: 'textbox'
         },
         {
-          q: 'Which category of products/services are you looking to explore?',
+          q: 'Which category of products/services are you looking for?',
           a: [ 'Food', 'Clothing', 'Revenge', 'Time management', 'Temperature management', 'Anger management', 'Beauty/wellness', 'Home', 'Kitchen', 'Pets', 'Design', 'Advertising', 'Gardening', 'Other', 'Surprise me' ],
           type: 'list'
         },
@@ -393,7 +385,7 @@ export default {
         },
         {
           q: 'Pick one',
-          a: [ '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '' ],
+          a: [ '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '' ],
           type: 'checkbox'
         },
         {
@@ -407,8 +399,8 @@ export default {
           type: 'textbox'
         },
         {
-          q: 'Spot the difference:',
-          a: [ './static/DeviceFocus-3000.jpg', './static/DeviceFocus-3000.jpg' ],
+          q: 'Find the cheese',
+          a: [ './static/cheese_room.jpg' ],
           type: 'image'
         },
         {
@@ -420,6 +412,11 @@ export default {
           q: 'What is the first name of the person who has the middle name of Herbert?',
           a: [''],
           type: 'textbox'
+        },
+        {
+          q: 'Spot the difference:',
+          a: [ './static/fire.jpg', './static/ice.jpg' ],
+          type: 'image'
         },
         {
           q: 'What street did you grow up on? ',
@@ -435,11 +432,6 @@ export default {
           q: 'What colour underwear are you wearing?',
           a: [ '' ],
           type: 'textbox'
-        },
-        {
-          q: 'Find the cheese',
-          a: './static/cheese_room.jpg',
-          type: 'image'
         },
         {
           q: 'Do you often find that you’re always feeling too hot or too cold?',
@@ -1095,6 +1087,7 @@ export default {
         } else {
           this.warning = ''
           this.textbox = ''
+          this.checkbox = ''
           this.nextQuestion()
         }
       }
@@ -1153,6 +1146,13 @@ export default {
     setCheck () {
       return this.captchas[this.cC].value.slice(0, this.randomNeg())
     },
+    startAdd () {
+      this.patienceAdd = setInterval(function () {
+        console.log('patience', this.patienceCount)
+        this.changes = this.patienceCount + 1
+        // console.log(this.changes)
+      }.bind(this), 10000)
+    },
     outOf (index) {
       let amount = 5 - this.products[this.productCount].reviews[index].stars.length
       return Array(amount + 1).join('☆')
@@ -1194,6 +1194,14 @@ export default {
   computed: {
     totalAmount () {
       return this.products[this.productCount].price + this.products[this.productCount + 1].price
+    },
+    changes: {
+      get: function () {
+        return this.patienceCount
+      },
+      set: function (v) {
+        this.patienceCount = v
+      }
     }
   },
   watch: {
@@ -1216,6 +1224,12 @@ export default {
   },
   created () {
     // window.addEventListener('mousemove', this.mouseMove)
+  },
+  mounted () {
+    this.startAdd()
+  },
+  beforeDestroy () {
+    clearInterval(this.patienceAdd)
   }
 }
 </script>
