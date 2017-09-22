@@ -571,6 +571,8 @@ button {
 }
 
 form {
+  z-index: 99;
+  margin-left: 40px;
   margin-right: $fixed-margin-sides;
 }
 

@@ -61,7 +61,7 @@
             <!-- LIST -->
             <template v-if="questions[qC].type == 'list'">
               <form v-for="(item, index) in questions[qC].a.length">
-                <input type="checkbox" :value="questions[qC].a[index]" v-model="checked"/><label>{{questions[qC].a[index]}}</label>
+                <input type="checkbox" :value="questions[qC].a[index]" v-model="checkedValues"/><label>{{questions[qC].a[index]}}</label>
               </form>
               <input type="submit" @click.stop="checkAnswer(questions[qC].type)"/>
             </template>
@@ -278,12 +278,12 @@ export default {
       checked: [],
       picked: '',
       qC: 0,
-      showProduct: false,
-      pC: 18,
+      showProduct: true,
+      pC: 2,
       showCaptcha: false,
       captchaCheck: false,
       checkString: '',
-      showCheckout: true,
+      showCheckout: false,
       showConditions: false,
       fontFamily: 'Museo100-Regular',
       fontSize: 13,
@@ -357,7 +357,7 @@ export default {
         {
           q: 'Pick an aesthetic',
           a: [ 'Fun', 'grungy', 'minimal', 'bombastic', 'quirky', 'normcore', 'cozy', 'cute', 'dark', 'no preference' ],
-          type: 'toggle'
+          type: 'option'
         },
         {
           q: 'In what year did you abandon your dreams?',
@@ -377,12 +377,12 @@ export default {
         {
           q: 'Which category of products/services are you looking for?',
           a: [ 'Food', 'Clothing', 'Revenge', 'Time management', 'Temperature management', 'Anger management', 'Beauty/wellness', 'Home', 'Kitchen', 'Pets', 'Design', 'Advertising', 'Gardening', 'Other', 'Surprise me' ],
-          type: 'list'
+          type: 'option'
         },
         {
           q: 'What is most important for you in a product or service?',
           a: [ 'Sleek design', 'Efficiency', 'Easy to use', 'Practicality', 'Cost' ],
-          type: 'list'
+          type: 'option'
         },
         {
           q: 'How do you like your eggs?',
@@ -1113,6 +1113,7 @@ export default {
     },
     questionnaireEnded () {
       this.showQuestionnaire = false
+      this.pC = this.randomProduct()
       this.showProduct = true
     },
     productEnded () {
@@ -1139,6 +1140,9 @@ export default {
         this.showCheckout = false
         this.showConditions = true
       }
+    },
+    randomProduct () {
+      return Math.floor(Math.random() * this.products.length)
     },
     conditionsEnded () {
       if (this.allowEnd === true) {
