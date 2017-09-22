@@ -136,15 +136,17 @@
             <img :src="products[pC].src" />
           </div>
           <div class="right">
-            <h1>{{products[pC].title}}</h1>
+            <h1 id="title">{{products[pC].title}}</h1>
             <h1 id="price"><img id="currency" src="../assets/cP$.svg" />{{products[pC].price}}</h1>
-            <p class="description">{{products[pC].description}}</p>
-            <p v-for="(review, index) in products[pC].reviews.length">
-              <span class="user">{{products[pC].reviews[index].user}}</span> <span class="stars">{{products[pC].reviews[index].stars}}<span class="filled">{{outOf(index)}}</span></span>
-              <span class="review">
-                {{products[pC].reviews[index].text}}
-              </span>
-            </p>
+            <div class="info">
+              <p class="description">{{products[pC].description}}</p>
+              <p v-for="(review, index) in products[pC].reviews.length">
+                <span class="user">{{products[pC].reviews[index].user}}</span> <span class="stars">{{products[pC].reviews[index].stars}}<span class="filled">{{outOf(index)}}</span></span>
+                <span class="review">
+                  {{products[pC].reviews[index].text}}
+                </span>
+              </p>
+            </div>
             <input id="buy" type="submit" value="Buy Now" @click.stop="productEnded"/>
           </div>
         </div>
@@ -267,14 +269,14 @@ export default {
       picked: '',
       qC: 0,
       showProduct: true,
-      pC: 1,
+      pC: 13,
       showCaptcha: false,
       captchaCheck: false,
       checkString: '',
       showCheckout: false,
       showConditions: false,
-      fontSize: 13,
       fontFamily: 'Museo100-Regular',
+      fontSize: 13,
       lineHeight: 15,
       popUp: false,
       videoPop: false,
@@ -493,7 +495,7 @@ export default {
           title: 'Bread Gloves',
           description: 'The perfect gift for the bread lover in your life or someone who just can’t keep their hands out of the food. These bread gloves makes it so easy to make a sandwich  One size fits all! Comes in 4 different flavours!',
           src: './static/bread-gloves.jpg',
-          price: 15,
+          price: 99,
           reviews: [
             {
               user: 'loosingweight',
@@ -510,8 +512,8 @@ export default {
         {
           title: 'Sauna Pants',
           description: 'Nothing makes you feel more invigorated and refreshed than a steaming sauna, relieving your body of excess stored water, which may contain toxins. But who has the time to go to a spa anymore? Plus, the sauna experience can be expensive. Not anymore! Introducing the revolutionary sauna pants! The at home sauna experience that you can enjoy when you want to and where you want to! Right in the comfort of your own home or office. All you do is strap it on and adjust the heat. You instantly feel your muscles soothed by a penetrating deep warm heat. The sauna pants work just like a sauna creating a moist heat sweating out unwanted excess water around your midsection and thighs, right where you need it the most! May help you lose thigh weight!!',
-          src: '',
-          price: 30,
+          src: './static/sauna_heat_vibration_pants_3_.jpg',
+          price: 130,
           reviews: [
             {
               user: 'blubabyboi',
@@ -523,7 +525,7 @@ export default {
         {
           title: 'Pet Petter',
           description: 'You love your cat/dog Felix/Fifi/Fido but also don’t always have time to play with him/her. Now Felix/Fifi/Fido sulks around depressed, feeling unloved and lonely. Does this sound like your pet? Then we have a solution for you. The pet petter is a paddle that will leave your pet feeling satisfied while you can focus on your work. Also good for animal lovers who are allergic to their pets. Rechargeable for hotel use. 6 de-flea pads included. 4 speeds/4 hair lengths',
-          src: '',
+          src: './static/pet_petter1.jpg',
           price: 239,
           reviews: [
             {
@@ -536,8 +538,8 @@ export default {
         {
           title: 'EZcracker',
           description: 'EZcracker. It’s in the name.',
-          src: '',
-          price: 10,
+          src: './static/ez_cracker.jpg',
+          price: 40,
           reviews: [
             {
               user: 'ised_nvm',
@@ -554,21 +556,26 @@ export default {
         {
           title: 'Air Conditioned Shoes',
           description: 'Cool shoes for hot people. Go faster and further without even breaking a footsweat.',
-          src: './static/bread-gloves.jpg',
-          price: 350,
+          src: './static/air-conditioned-shoes.jpeg',
+          price: 400,
           reviews: [
             {
-              user: 'fitness4lyfe',
+              user: 'fitbiz',
               stars: '★★★★★',
               text: 'So cool! Finally a cool enough shoe for hot people'
+            },
+            {
+              user: 'brocorp',
+              stars: '★★★★★',
+              text: 'I don\'t get irritated in meetings anymore now that my feet don\'t get hot'
             }
           ]
         },
         {
           title: 'Wristify',
           description: 'What if you could control how you feel anytime anywhere? Humans have been using fire and water to heat or cool for thousands of years. At wristify, we combine physiology and material science to harness the effects of temperature. It can heat when you’re cold, and cool when you’re hot, and interface with our growing world of devices and people. And we’ve engineered it all into a wristband. A fancy lookin’ one.',
-          src: '',
-          price: 'get quote',
+          src: './static/WrisitfyModel.jpg',
+          price: 'Get Quote',
           reviews: [
             {
               user: 'phil_the',
@@ -585,8 +592,8 @@ export default {
         {
           title: 'Exhaust Burger',
           description: 'If you’re always on the go and have little time to prepare your lunch, you can save some time with this auto food smoker. All you need is a car, food processor, and this attachment. Process your food, pack it in the smoker, and drive. By the end of your trip, you’ll end up with a tasty smoked meal.',
-          src: '',
-          price: 56,
+          src: './static/exhaust-burger.jpg',
+          price: 80,
           reviews: [
             {
               user: 'fedor4fan',
@@ -603,8 +610,8 @@ export default {
         {
           title: 'Egg Minder',
           description: 'The contemporary smart egg tray. So smart! So egg! So tray! The smart egg tray lets you know how many eggs you have left in the fridge while you are out at the grocery store via its built-in WiFi connectivity (Driven by the Electric Imp card) and the Wink smartphone app. The tray features a sensor installed in each egg slot that can help you keep track of recommended expiration dates based on when they were first placed in the carton and a built-in LED to alert you to the freshest eggs remaining in the last batch.',
-          src: '',
-          price: 40,
+          src: './static/wink-egg-minder-app.jpg',
+          price: 250,
           reviews: [
             {
               user: 'prof_eggspelliarmus',
@@ -625,9 +632,9 @@ export default {
         },
         {
           title: 'Grovio',
-          description: 'Grovio is a smart solution for smarter homes. It’s an enjoyable and intuitive way to interact with your houseplants. Grovio will never forget to water them. Grovio will express your plants’ needs directly through your smartphone. All your Grovio devices can be linked to a single smartphone application. Oleksandr Ivanov, a founder of Techware says, “People are busy with lots of stuff everyday but it shouldn’t influence vulnerable and fragile plants”. Now you can keep your plants healthy and watered for only €175!',
-          src: '',
-          price: 175,
+          description: 'Grovio is a smart solution for smarter homes. It’s an enjoyable and intuitive way to interact with your houseplants. Grovio will never forget to water them. Grovio will express your plants’ needs directly through your smartphone. All your Grovio devices can be linked to a single smartphone application. Oleksandr Ivanov, a founder of Techware says, “People are busy with lots of stuff everyday but it shouldn’t influence vulnerable and fragile plants”. Now you can keep your plants healthy and watered without lifting a finger!',
+          src: './static/grovio-e1497441736502.png',
+          price: 225,
           reviews: [
             {
               user: 'ravenandjames4eva',
@@ -644,8 +651,8 @@ export default {
         {
           title: 'DeviceFocus 3000',
           description: 'With all the light and people around you, it can be really difficult to focus on your work. Now with the DeviceFocus 3000, you can block out the distraction of the outside world and funnel all your energy to your laptop, phone, or other device. The DeviceFocus 3000 is a comfy hood that attaches your face directly to your device. Add to your health goth aesthetic by attaching to your hoodie. One size fits all.',
-          src: '',
-          price: 40,
+          src: './static/DeviceFocus-3000.jpg',
+          price: 70,
           reviews: [
             {
               user: 'oscarwilderthanthou',
@@ -667,8 +674,8 @@ export default {
         {
           title: 'Wireless rechargeable warming gloves',
           description: 'FITS IN YOUR GLOVES! When days are bitter cold, gloves alone are not enough! Slip the Wireless Rechargeable Warming Glove Liners underneath your regular gloves for hours of steady, soothing warmth. Made of micro-thin elastic material plus high-tech carbon fiber for a great fit. Simply click a button to select your warming level (low/med/high) for up to 5 hours of comfort. They\'re so soft and warm, you won\'t want to take them off!',
-          src: '',
-          price: 60,
+          src: './static/warm-gloves.jpg',
+          price: 120,
           reviews: [
             {
               user: 'john23',
@@ -685,26 +692,26 @@ export default {
         {
           title: 'bluetooth yoga speaker mat',
           description: 'The rechargeable Bluetooth Yoga Speaker Mat pairs easily with your iPhone, iPad, Samsung Galaxy or other Android device to stream your favorite wireless music for up to 4 hours. It has two built-in 3-Watt stereo speakers, plus onboard buttons to control tracks (play/pause/forward/backward/volume). Your device stays safe and secure, up to 30 feet away. Features LED status light and an auxiliary line in jack in to connect iPods, CD players and other non-Bluetooth devices. Available in Lavender or Orange. Includes case.',
-          src: '',
-          price: 35,
+          src: './static/yoga-mat.jpg',
+          price: 160,
           reviews: [
             {
               user: 'fit_2legs',
               stars: '★★★★',
               text: 'Now that the speakers are so close to my heart center I feel more present.'
+            },
+            {
+              user: 'loveisxtc',
+              stars: '★★★★★',
+              text: 'Namaste!'
             }
           ]
         },
         {
-          user: 'loveisxtc',
-          stars: '★★★★★',
-          text: 'Namaste!'
-        },
-        {
           title: 'Bye Bye Germs UV Rechargeable Sanitizing Wand',
           description: 'Get outta here, mold. Bring your healthy home to a whole new level of clean with the Verilux UV Rechargeable Sanitizing Wand. This handy cordless device uses Ultraviolet-C light to kill up to 99.9% of germs, viruses, MRSA, H1N1 and other micro-organisms on solid, non-porous surfaces. It sanitizes without chemicals, irritants or residues, and operates at full power for one hour on a single charge. Simply wave it over countertops, keyboards, cell phones, pillows, cribs, mattress covers, upholstery, pet beds, hotel bedding, baby items and more.',
-          src: '',
-          price: 42,
+          src: './static/Verilux-bye-bye-germs.jpg',
+          price: 99,
           reviews: [
             {
               user: 'penny_55',
@@ -721,8 +728,8 @@ export default {
         {
           title: 'Travel Trac Book Caddy',
           description: 'Trying to find time to catch up on your reading and training? Do both at once with the Travel Trac Book Caddy! Why stop at books? Why not use it for tablet computers mounted in front of your bicycle handlebars? Perfect for all types of reading material. It mounts in seconds to virtually any road and mountain bike.',
-          src: '',
-          price: 23,
+          src: './static/Travel-Trac-Book-Caddy.jpg',
+          price: 115,
           reviews: [
             {
               user: 'anon',
@@ -739,8 +746,8 @@ export default {
         {
           title: 'Tailio litter box',
           description: 'Easy simple wellness. Tailio is designed to blend seamlessly into your cats surroundings as it rests under the litter box. Cats go about their business as usual, while Tailio works in the background to help you know when they need your care. Works with multiple cats. Easy for cats. Simple for owners. Share info with vet.',
-          src: '',
-          price: 36,
+          src: './static/Tailio-Smart-Health-Monitor-for-Cats.jpg',
+          price: 250,
           reviews: [
             {
               user: 'techguru91',
@@ -762,7 +769,7 @@ export default {
         {
           title: 'Triple Snowball Blaster Pro',
           description: 'Why throw snowballs when you can launch them instead? The newly redesigned Triple Snowball Blaster shoots snowballs up to 80 feet with amazing accuracy. First, use the detachable snowball press to make three perfect snowballs. Then, load a snowball into the ergonomic “easy pull” launcher… and let it fly. Your outdoor opponents will raise the white flag when they see you packing the Triple Snowball Blaster! Includes vinyl target. Ages 8+',
-          src: '',
+          src: './static/snowball-.jpg',
           price: 28,
           reviews: [
             {
@@ -780,8 +787,8 @@ export default {
         {
           title: 'Loop circular shower',
           description: 'The Loop is an outdoor luxury shower system, spraying water on the user from all around the interior of the circle. The Loop\'s shape was inspired by the motions of waves. It can be used indoors as well as outside and includes an array of special functions to help personalize the system and create a multi-sensory experience.',
-          src: '',
-          price: 865,
+          src: './static/plato-ducha-esfera-blanca.jpg',
+          price: 965,
           reviews: [
             {
               user: 'qtlife',
@@ -803,7 +810,7 @@ export default {
         {
           title: 'Amazing Lamp',
           description: 'Do you wake up often at night for soothing glass of milk and don’t want to bother other family members with light? Then this simple, portable and beautiful lamp designed by Smart Solutions is for you. The lamp can be lifted out of the stand and used as a portable lighting solution when needed.',
-          src: '',
+          src: './static/dkmb86g_319hqp9ntd4_b.jpg',
           price: 55,
           reviews: [
             {
@@ -816,7 +823,7 @@ export default {
         {
           title: 'SMALT',
           description: 'SMALT is the world\'s first interactive centerpiece and smart salt dispenser designed to enhance your dining experience. It’s an interactive conversation piece! Play your favorite music through the Bluetooth speaker, set the ambiance with color-changing mood light, and dispense salt in any amount you please. SMALT app lets you simply shake, pinch, or choose the measurement of salt you desire right from your phone, via Alexa or device itself. Dance to the beat and shake your salt out to amuse your guests or rock on your own.',
-          src: '',
+          src: './static/SMALT1.jpg',
           price: 126,
           reviews: [
             {
@@ -834,8 +841,8 @@ export default {
         {
           title: 'Poopsenders',
           description: 'Looking for a great gag gift? Has some one really pissed you off? Don\'t get mad, GET EVEN. Send that special someone a big stinky pile of poop anonymously. We will send your friend or enemy a healthy helping of some of the nastiest, stinkiest, fresh poop packages you have ever seen. We have several varieties of poop that we can send, including a special poop of the month. You can even get a monthly subscription.',
-          src: '',
-          price: 'get quote',
+          src: './static/poopsenders.jpg',
+          price: 'Get Quote',
           reviews: [
             {
               user: 'maryjane',
@@ -852,8 +859,8 @@ export default {
         {
           title: 'Someone to wait in line for you',
           description: 'Need someone to hold your place in line at that new cupcake shop? Or at a Disneyland ride? Or Albert Heijn during rush hour? Or do you just hate crowds? Now you don’t have to rely on strangers who really just want to take your spot. Hire someone to stand in line for you at any time of the day, in any environment, during any kind of weather. Get a quote here. You can choose from our employees. By clicking on their profile you can see their schedule.',
-          src: '',
-          price: 'get quote',
+          src: './static/Waiting-in-line.jpg',
+          price: 'Get Quote',
           reviews: [
             {
               user: 'janynjack',
@@ -870,8 +877,8 @@ export default {
         {
           title: 'Anger Room',
           description: 'We believe that sometimes it’s better to just do what you feel and lash out when you need to!  And what better place to do that without judgement, consequences or public humiliation than in an Anger Room? Anger Room provides locations where you can let your hair down, gear up and destroy real-life mocked rooms that simulate an actual workplace, living area, kitchen and more. Complete with glass, mannequins, TVs, tables and many, many more breakable items. You may enter highly upset but when you leave, the rest of your day will be lemonade compared to what could have happened if you didn’t give us a visit :) Good for frustrated employees, students, stressed parents, couples, parties, corporate events.',
-          src: '',
-          price: 'get quote',
+          src: './static/Angerroom2.jpg',
+          price: 'Get Quote',
           reviews: [
             {
               user: 'dannyboi',
@@ -883,8 +890,8 @@ export default {
         {
           title: 'The Ad Twins',
           description: 'You may recognize us as the wwwebshop twins from this site, but we are also represent many other people, products, and businesses. The appearance of TWINS is eye-catching & fascinating! Advertise your website, product or music with The Ad Twins Team! Top rated seller-100% rating, more than 9,000 orders worldwide! Pay a small extra fee for different costumes, adding extra graphics or music, or requesting a green screen behind us!',
-          src: '',
-          price: 'get quote',
+          src: './static/theadtwins.png',
+          price: 'Get Quote',
           reviews: [
             {
               user: 'corporatewolf',
@@ -896,8 +903,8 @@ export default {
         {
           title: 'QuickQT',
           description: 'QuickQT offers a range of talented actors who can be there for you on call If you need a last minute date for a wedding, to make your ex jealous, to pose as your partner so your parents will stop bugging you about why you’re still single. Select the characteristics you want in your QuickQT partner and fill out some of your details so your QuickQT can learn all they need to learn about you. Once we find a QuickQT in your area, we’ll connect the two of you through our QuickQT app and they will instantly slip into their role as your partner. Our QuickQts are professional actors, so just relax and be yourself. Your QuickQT will do the rest to make your friends and exes jealous, and your parents shut up. There are hundreds of beautiful people to choose from so throw out your cardboard girl/boyfriend and sign up for QuickQT!',
-          src: '',
-          price: 'get quote',
+          src: './static/QuickQT_Bachelors.jpg',
+          price: 'Get Quote',
           reviews: [
             {
               user: 'eligblebachelor',
@@ -909,8 +916,8 @@ export default {
         {
           title: 'Plant Whisperer',
           description: 'If you\'ve ever worked with live flowers or plants, you know that they require special care to survive and thrive. If you’ve tried everything but your plants still aren’t showing their full potential, try a kind word. We have a number of skilled and experienced plant whisperers who will come to your garden to give your plants the gift of human breath and storytelling. Research shows that plants respond positively to exposure to sounds. Our whisperers are skilled storytellers and conversationalists trained to optimize their lung capacity, carbon dioxide output, and voice projection to ensure a full resonant tone for up to 30 minutes straight. Try our services and see the full effects on your garden. Cashback guaranteed if your plants do not improve their growth after one week.',
-          src: '',
-          price: 'get quote',
+          src: './static/PlantWhisperer.jpg',
+          price: 'Get Quote',
           reviews: [
             {
               user: 'amateurgreenfingerz',
@@ -922,8 +929,8 @@ export default {
         {
           title: 'MemeMe!',
           description: 'Memes can cheer you up, affirm your feelings, deliver news, and so much more. MemeMe! Is a customizable daily meme service for all your meme needs. This service comes in the form of an app that is attached to a pulse reader and EEG reader to read your emotional response. Our emotion based algorithms match your emotional data to an updated database of memes which we send to you at an adjustable rate. If we don’t have the right memes, our algorithms will generate a meme for you. Our memes are updated to the second so you can be the first of your friends to see and share the newest memes. Whatever your meme needs are at the moment, we will deliver.',
-          src: '',
-          price: 'get quote',
+          src: './static/MemeMe!2.jpg',
+          price: 'Get Quote',
           reviews: [
             {
               user: 'mimememe',
@@ -935,8 +942,8 @@ export default {
         {
           title: 'Invisible Boyfriend/Girlfriend',
           description: 'What\'s an invisible boyfriend/girlfriend? a digital version of a real boyfriend/girlfriend without the baggage. An Invisible Boyfriend or Girlfriend can help you manage real-world distractions. Put simply, this platform helps you create credible, reasonable stories that you can bring home to curious mom, your buddies, and coworkers. These stories are backed by virtual and real-world social proof. How does it work? Build him/her to your specifications. You choose his/her age, photo, and personality. We\'ll help you set the scene for how you met. Just fill in the blanks. Conversations are powered by real creative writers. No Bots! This service includes text messaging, personalized notes, and photos.',
-          src: '',
-          price: 'get quote',
+          src: './static/Invisible-bfgf.png',
+          price: 'Get Quote',
           reviews: [
             {
               user: 'superfocus2000',
@@ -948,8 +955,8 @@ export default {
         {
           title: 'The User is My Mom: UX testing by Moms',
           description: 'Before you launch a website, it’s a good idea to have a UX service test it to make sure it’s free of bugs and easy to use. But if your target audience includes moms or anyone who’s not super tech-savvy, you might benefit from using this testing service that will give you a look at how Scotty\'s moms sees your website. Scotty\'s mom yells at her computers, doesn\'t know what a twitter is, and struggles to find windows she\'s minimized',
-          src: '',
-          price: 'get quote',
+          src: './static/UXmom.jpg',
+          price: 'Get Quote',
           reviews: [
             {
               user: 'superfocus2000',
@@ -961,8 +968,8 @@ export default {
         {
           title: 'Personal Paparazzi',
           description: 'In today\'s culture of self §promotion and Insta-celebrities, nothing is more paramount to your popularity than a long and dramatic photo trail that documents the banalities of your daily life: getting groceries, walking your dog, cheating on your spouse and so on. But who will sell pictures of you sleeping into your car to tabloids, attracting a flurry of press and attention to your otherwise mundane existence? This is where our Paparazzi come in. Our Paparazzi are interactive photojournalists using flattery and comedy to get people excited about your event, while capturing some of the best candid images. We bring the Hollywood red carpet experience to your life. Experience the celeb within.',
-          src: '',
-          price: 'get quote',
+          src: './static/personal-paparazzi.jpg',
+          price: 'Get Quote',
           reviews: [
             {
               user: 'mizzfame',
@@ -1234,8 +1241,6 @@ export default {
 @import '../style/helpers/_responsive.scss';
 @import '../style/_variables.scss';
 @import '../style/parts/_home.scss';
-// @import '../style/parts/_footer.scss';
-// @import '../style/parts/_header.scss';
 @import '../assets/fonts/Museo100-Regular.css';
 @import '../assets/fonts/Museo300-Regular.css';
 @import '../assets/fonts/Museo500-Regular.css';
