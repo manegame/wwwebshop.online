@@ -5191,6 +5191,10 @@ vue-video@^0.1.7:
   version "0.1.7"
   resolved "https://registry.yarnpkg.com/vue-video/-/vue-video-0.1.7.tgz#ec69534da695225de6c02bda6c7d49b6d46bea66"
 
+vue-youtube-embed@^2.1.2:
+  version "2.1.2"
+  resolved "https://registry.yarnpkg.com/vue-youtube-embed/-/vue-youtube-embed-2.1.2.tgz#de5992c4e0aa99cbc9ae5e1e076c94e2f049a5c2"
+
 vue@^2.4.2:
   version "2.4.4"
   resolved "https://registry.yarnpkg.com/vue/-/vue-2.4.4.tgz#ea9550b96a71465fd2b8b17b61673b3561861789"

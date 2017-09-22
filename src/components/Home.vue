@@ -19,14 +19,24 @@
     </header>
 
     <main>
+
       <!-- Stage 1: Video (Alt) -->
-      <template v-if="showVideo">
+      <!-- <template v-if="showVideo">
         <div class="video main">
           <div class="container">
             <video controls v-on:ended="videoEnded" playsinline>
               <source src="../../static/intro-1080.mp4" type="video/mp4"/>
               <source src="../../static/intro-720.mp4" type="video/mp4"/>
             </video>
+          </div>
+        </div>
+      </template> -->
+
+      <!-- Stage 1: Video (Youtube) -->
+      <template v-if="showVideo">
+        <div class="main video">
+          <div class="container embed-responsive">
+            <youtube class="embed-responsive-item" v-cloak :video-id="videoId" :player-vars="{autoplay: 1, rel: 0, modestbranding: 1, fs: 0, showinfo: 0}" @ready="ready" @playing="playing" @ended="videoEnded"></youtube>
           </div>
         </div>
       </template>
@@ -238,8 +248,10 @@
       </template>
 
       <template v-if="videoPop">
-        <div class="video popup">
-          <my-video :sources="videopopup.sources" :options="video.options"></my-video>
+        <div class="popup video">
+          <div class="container embed-responsive">
+            <youtube class="embed-responsive-item" v-cloak :video-id="popupId" :player-vars="{autoplay: 1, rel: 0, modestbranding: 1, fs: 0, showinfo: 0}" @ready="ready" @playing="playing" @ended="popupEnded"></youtube>
+          </div>
         </div>
       </template>
 
@@ -273,6 +285,9 @@ export default {
     return {
       msg: '',
       showVideo: true,
+      videoPop: true,
+      videoId: '5gSjrUzCFqs',
+      popupId: 'x_fS7jtrOdE',
       showQuestionnaire: false,
       textbox: '',
       checked: [],
@@ -289,7 +304,6 @@ export default {
       fontSize: 13,
       lineHeight: 15,
       popUp: false,
-      videoPop: false,
       isMinimized: false,
       comeBack: false,
       userInteract: false,
@@ -300,37 +314,20 @@ export default {
       cC: 0,
       allowEnd: false,
       warning: '',
-      video: {
-        sources: [
-          {
-            src: './static/splash-video.mp4',
-            type: 'video/mp4'
-          },
-          {
-            src: './static/splash-video.mp4',
-            type: 'video/mp4'
-          }
-        ],
-        options: {
-          controls: false,
-          autoplay: true,
-          loop: true,
-          volume: 0.1,
-          muted: true
+      twins: [
+        {
+          title: 'Intro',
+          src: '5gSjrUzCFqs'
+        },
+        {
+          title: 'Are You Sure?',
+          src: 'x_fS7jtrOdE'
+        },
+        {
+          title: 'Need Any Help?',
+          src: 'UTtqh0O73bo'
         }
-      },
-      videopopup: {
-        sources: [{
-          src: './static/avocado.mp4',
-          type: 'video/mp4'
-        }],
-        options: {
-          autoplay: true,
-          loop: true,
-          volume: 0.1,
-          muted: true
-        }
-      },
+      ],
       popups: [
         {
           'title': '',
@@ -1186,6 +1183,27 @@ export default {
       } else {
         return value
       }
+    },
+    ready (player) {
+      this.player = player
+    },
+    playing (player) {
+      // The player is playing a video.
+      console.log('playing')
+    },
+    change () {
+      // when you change the value, the player will also change.
+      // If you would like to change `playerVars`, please change it before you change `videoId`.
+      // If `playerVars.autoplay` is 1, `loadVideoById` will be called.
+      // If `playerVars.autoplay` is 0, `cueVideoById` will be called.
+      console.log('change video ID')
+      this.videoId = this.twins[1].src
+    },
+    stop () {
+      this.player.stopVideo()
+    },
+    pause () {
+      this.player.pauseVideo()
     },
     userScroll: _.throttle(function () {
       let area = this.$refs.textArea

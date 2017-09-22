@@ -1,3 +1,7 @@
+[v-cloak] {
+  display: none;
+}
+
 body {
   overflow: hidden;
   overflow-y: auto;
@@ -142,17 +146,8 @@ h2 {
         @include center;
         box-shadow: $theme-shadow;
         &.video {
-          display: block;
-          width: 65vw;
-          height: 36vw;
-          .container {
-            position: absolute;
-            width: 100%;
-            height: auto;
-            video {
-              width: 100%;
-            }
-          }
+          width: 900px;
+          height: 505px;
         }
         &.questionnaire {
           width: 80vw;
@@ -442,11 +437,11 @@ h2 {
       }
       .popup {
         position: absolute;
-        padding: 10px;
         color: white;
         border-radius: 3px;
         cursor: pointer;
         &.warning {
+          padding: 10px;
           left: 2vh;
           bottom: 5vh;
           background: rgba(249, 60, 10, 0.79);
@@ -455,6 +450,7 @@ h2 {
           font-weight: 900;
         }
         &.invite {
+          padding: 10px;
           right: 2vh;
           bottom: 25vh;
           background: rgba(10, 213, 249, 0.79);
@@ -463,6 +459,7 @@ h2 {
           line-height: $line-height * 1.5;
         }
         &.freebie {
+          padding: 10px;
           left: 2vh;
           top: calc(10vh + #{$line-height * 2.2});
           background: rgba(10, 249, 55, 0.79);
@@ -470,13 +467,11 @@ h2 {
           font-size: $font-size * 2;
           line-height: $line-height * 2;
         }
-        transition: all .3s ease;
-        &.popup {
+        &.video {
           width: 30vw;
-          height: 100px;
-          top: 2vh;
-          right: 10vh !important;
+          height: 20vh;
         }
+        transition: all .3s ease;
       }
     }
     #alert {
