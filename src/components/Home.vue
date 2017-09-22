@@ -11,11 +11,10 @@
 
     <header>
       <img src="../assets/logo-white@2x.png"/>
-        <div class="counter">
+        <div class="counter" @mousedown="addCount">
           <img src="../assets/bP$.svg" />
-          <p id="counter" v-on:click="addCount">
-            {{patienceCount}}
-          </p>
+          <p id="warn">{{warning}}</p>
+          <p id="counter">{{patienceCount}}</p>
         </div>
     </header>
 
@@ -156,12 +155,16 @@
 
       <template v-if="showCaptcha">
         <div class="main captcha">
-          <img class="captcha" :src="this.captchas[cC].src"/>
-          <input type="text" v-model="captcha"/>
-          <input type="submit" @click.stop="captchaEnded"/>
-          <p id="warn">
-            {{warning}}
-          </p>
+          <div class="top">
+            <img class="captcha" :src="this.captchas[cC].src"/>
+          </div>
+          <div class="bottom">
+            <input type="text" v-model="captcha"/>
+            <input type="submit" @click.stop="captchaEnded"/>
+            <p id="warn">
+              {{warning}}
+            </p>
+          </div>
         </div>
       </template>
 
@@ -169,38 +172,45 @@
 
       <template v-if="showCheckout">
         <div class="main checkout">
-          <div class="basket">
-            <h1>
-              Your Choice
-            </h1>
+          <div class="top">
+            <div class="uContainer">
+              <p id="U">
+                U:
+              </p>
+            </div>
+            <h1>The Product Of Your Choice</h1>
+          </div>
+          <div class="left">
             <div class="item">
               <img :src="products[pC].src" />
               <div class="info">
                 <h2>{{products[pC].title}}</h2>
-                <h3>€{{products[pC].price}}</h3>
+                <img class="currency" src="../assets/cP$.svg"/><h2 id="price">{{products[pC].price}}</h2>
               </div>
             </div>
             <div class="item sneak">
               <img :src="products[pC+1].src" />
               <div class="info">
                 <h3>{{products[pC+1].title}}</h3>
-                <h3>€{{products[pC+1].price}}</h3>
+                <h3><img class="currency" src="../assets/cP$.svg"/>{{products[pC+1].price}}</h3>
               </div>
             </div>
+            <div class="last">
+              <img id="slogan" src="../assets/slogan.svg" />
+            </div>
           </div>
-          <div class="bump">
-            <p>
-              Nothing You Expect, Everything You Deserve®
-            </p>
-          </div>
-          <div class="totals">
-            <h2>
-              Total: €{{totalAmount}}
-            </h2>
-            <h2>
-              Your Wallet: €{{this.patienceCount}}
-            </h2>
-            <input id="buy" type="submit" value="Buy" @click="checkoutEnded"/>
+          <div class="right">
+            <div class="totals">
+              <div class="total">
+                <h2>Total</h2>
+                <h1>{{totalAmount}}</h1>
+              </div>
+              <div class="you">
+                <h2>Your Wallet</h2>
+                <h1>{{patienceCount}}</h1>
+              </div>
+              <input id="buy" type="submit" value="Buy" @click="checkoutEnded"/>
+            </div>
           </div>
         </div>
       </template>
@@ -215,7 +225,7 @@
           </p>
           <textarea readonly ref="textArea" v-model="conditions.text" :style="{ fontSize: fontSize + 'px', lineHeight: lineHeight + 'px', fontFamily: fontFamily }" @scroll="userScroll"></textarea>
           <input type="submit" value="Accept" @click.stop="conditionsEnded">
-          <p id="warn">{{this.warning}}</p>
+          <p id="warn">{{warning}}</p>
         </div>
       </template>
 
@@ -268,12 +278,12 @@ export default {
       checked: [],
       picked: '',
       qC: 0,
-      showProduct: true,
+      showProduct: false,
       pC: 13,
       showCaptcha: false,
       captchaCheck: false,
       checkString: '',
-      showCheckout: false,
+      showCheckout: true,
       showConditions: false,
       fontFamily: 'Museo100-Regular',
       fontSize: 13,
@@ -1121,8 +1131,14 @@ export default {
       }
     },
     checkoutEnded () {
-      this.showCheckout = false
-      this.showConditions = true
+      console.log(this.totalAmount, this.patienceCount)
+      if (this.totalAmount >= this.patienceCount) {
+        this.warning = 'Insufficiend Funds'
+      } else {
+        this.warning = ''
+        this.showCheckout = false
+        this.showConditions = true
+      }
     },
     conditionsEnded () {
       if (this.allowEnd === true) {
