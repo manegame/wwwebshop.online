@@ -272,13 +272,13 @@ export default {
   data () {
     return {
       msg: '',
-      showVideo: false,
+      showVideo: true,
       showQuestionnaire: false,
       textbox: '',
       checked: [],
       picked: '',
       qC: 0,
-      showProduct: true,
+      showProduct: false,
       pC: 2,
       showCaptcha: false,
       captchaCheck: false,
@@ -1171,7 +1171,7 @@ export default {
       this.patienceAdd = setInterval(function () {
         console.log('patience', this.patienceCount)
         this.changes = this.patienceCount + 1
-      }.bind(this), 30000)
+      }.bind(this), 15000)
     },
     outOf (index) {
       let amount = 5 - this.products[this.pC].reviews[index].stars.length
