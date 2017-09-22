@@ -185,14 +185,14 @@
               <img :src="products[pC].src" />
               <div class="info">
                 <h2>{{products[pC].title}}</h2>
-                <img class="currency" src="../assets/cP$.svg"/><h2 id="price">{{products[pC].price}}</h2>
+                <img class="currency" src="../assets/cP$.svg"/><h2 id="price">{{price1}}</h2>
               </div>
             </div>
             <div class="item sneak">
               <img :src="products[pC+1].src" />
               <div class="info">
                 <h3>{{products[pC+1].title}}</h3>
-                <h3><img class="currency" src="../assets/cP$.svg"/>{{products[pC+1].price}}</h3>
+                <h3><img class="currency" src="../assets/cP$.svg"/>{{price2}}</h3>
               </div>
             </div>
             <div class="last">
@@ -279,7 +279,7 @@ export default {
       picked: '',
       qC: 0,
       showProduct: false,
-      pC: 13,
+      pC: 18,
       showCaptcha: false,
       captchaCheck: false,
       checkString: '',
@@ -1173,6 +1173,16 @@ export default {
       let amount = 5 - this.products[this.pC].reviews[index].stars.length
       return Array(amount + 1).join('☆')
     },
+    quotedPrice () {
+      return Math.floor(Math.random() * 100)
+    },
+    getQuote (value) {
+      if (value === 'Get Quote') {
+        return this.quotedPrice()
+      } else {
+        return value
+      }
+    },
     userScroll: _.throttle(function () {
       let area = this.$refs.textArea
       let current = area.scrollTop + area.offsetHeight
@@ -1208,8 +1218,14 @@ export default {
     }, 50)
   },
   computed: {
+    price1 () {
+      return this.getQuote(this.products[this.pC].price)
+    },
+    price2 () {
+      return this.getQuote(this.products[this.pC + 1].price)
+    },
     totalAmount () {
-      return this.products[this.pC].price + this.products[this.pC + 1].price
+      return this.price1 + this.price2
     },
     changes: {
       get: function () {
