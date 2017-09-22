@@ -1,11 +1,15 @@
 /* Typography */
-$Museo500  : 'Museo500-Regular', Helvetica, Arial, sans-serif;
-$Museo300  : 'Museo300-Regular', Helvetica, Arial, sans-serif;
-$Museo100  : 'Museo100-Regular', Helvetica, Arial, sans-serif;
-$Museo900  : 'Museo900-Regular', Helvetica, Arial, sans-serif;
-$Museo700  : 'Museo700-Regular', Helvetica, Arial, sans-serif;
+$Museo500        : 'Museo500-Regular', Helvetica, Arial, sans-serif;
+$Museo300        : 'Museo300-Regular', Helvetica, Arial, sans-serif;
+$Museo100        : 'Museo100-Regular', Helvetica, Arial, sans-serif;
+$Museo900        : 'Museo900-Regular', Helvetica, Arial, sans-serif;
+$Museo700        : 'Museo700-Regular', Helvetica, Arial, sans-serif;
 $font-size       : 16px;
+$font-size-m     : 24px;
+$font-size-l     : $font-size * 3.4;
 $line-height     : 20px;
+$line-height-m   : 30px;
+$line-height-l   : $line-height * 3;
 /* Color */
 $black           : #000;
 $white           : #fff;

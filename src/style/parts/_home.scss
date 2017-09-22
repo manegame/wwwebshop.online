@@ -97,18 +97,19 @@ header {
 }
 
 #currency {
-
+  display: inline-block;
 }
 
 // CORE
 
 h1 {
-  line-height: $line-height * 3;
+  line-height: $line-height-l;
 }
 
 h2 {
-  font-size: $font-size * 2;
-  line-height: $line-height * 2;
+  font-family: $Museo500;
+  font-size: $font-size-m;
+  line-height: $line-height-m;
 }
 
 #app {
@@ -149,8 +150,8 @@ h2 {
           height: 70vh;
           transition: all 1s ease-out;
           overflow: hidden;
-          font-size: $font-size * 3.4;
-          line-height: $line-height * 3;
+          font-size: $font-size-l;
+          line-height: $line-height-l;
           .question {
             width: 100%;
             height: 20%;
@@ -191,32 +192,43 @@ h2 {
           z-index: 1;
           width: 80vw;
           height: 70vh;
+          overflow: hidden;
+          p {
+            font-size: $font-size-m;
+            line-height: $line-height-m;
+          }
           .left {
             float: left;
             width: 40%;
             img {
               width: 100%;
-              padding: 3%;
-            }
-            h2 {
-              position: absolute;
-              bottom: 3vh;
-              left: 20%;
-              height: auto;
-              color: rgb(116, 168, 62);
-              text-shadow: 0px 3px 10px rgb(255, 255, 255);
+              padding: $fixed-margin-sides * 2;
             }
           }
           .right {
             float: left;
             width: 60%;
-            .description {
-              width: 80%;
-              display: inline;
+            padding-top: $fixed-margin-top / 2;
+            > p {
+              width: 100%;
+              padding-right: $fixed-margin-sides * 5;
               &:after {
                 content: '\a\a';
                 white-space: pre;
               }
+            }
+            #price {
+              opacity: 0.7;
+              margin-bottom: $fixed-margin-bottom;
+              #currency {
+                height: calc(#{$line-height-l} - 12px);
+                margin-bottom: -13px;
+                margin-right: 4px;
+                margin-left: -4px;
+              }
+            }
+            .user {
+              font-family: $Museo700;
             }
             .stars {
               &:after {
@@ -393,7 +405,7 @@ h2 {
 
 h1 {
   font-size: $font-size * 3;
-  line-height: $line-height * 3;
+  line-height: $line-height-l;
 }
 
 .inline-helper {
@@ -423,20 +435,20 @@ input[type="submit"], button {
   right: 24%;
   margin: $fixed-margin-sides;
   font-size: $font-size * 2;
-  line-height: $line-height * 3;
+  line-height: $line-height-l;
 }
 
 input[type="radio"] {
   border: 0px;
-  height: $font-size * 3.4 !important;
+  height: $font-size-l !important;
 }
 
 input[type="text"] {
   position: absolute;
   top: 23%;
   left: 0;
-  font-size: $font-size * 3.4;
-  line-height: $line-height * 3;
+  font-size: $font-size-l;
+  line-height: $line-height-l;
   height: $line-height * 4;
   width: 60vw;
   padding: 0 10px;
@@ -453,7 +465,7 @@ button {
   border-right: $theme-border;
   color: $black;
   height: $line-height * 4;
-  font-size: $font-size * 3.4;
+  font-size: $font-size-l;
 }
 
 form {
@@ -470,7 +482,7 @@ input[type="submit"] {
   right: 0;
   bottom: 0;
   width: 20%;
-  height: $line-height * 3;
+  height: $line-height-l;
   font-size: $font-size * 2;
 }
 

@@ -133,20 +133,16 @@
       <template v-if="showProduct">
         <div class="main product">
           <div class="left">
-            <img :src="products[productCount].src" />
-            <h2 class="price">
-              €{{products[productCount].price}}
-            </h2>
+            <img :src="products[pC].src" />
           </div>
           <div class="right">
-            <h1>{{products[productCount].title}}</h1>
-            <p class="description">
-              {{products[productCount].description}}
-            </p>
-            <p v-for="(review, index) in products[productCount].reviews.length">
-              <span class="user">{{products[productCount].reviews[index].user}}</span> <span class="stars">{{products[productCount].reviews[index].stars}}<span class="filled">{{outOf(index)}}</span></span>
+            <h1>{{products[pC].title}}</h1>
+            <h1 id="price"><img id="currency" src="../assets/cP$.svg" />{{products[pC].price}}</h1>
+            <p class="description">{{products[pC].description}}</p>
+            <p v-for="(review, index) in products[pC].reviews.length">
+              <span class="user">{{products[pC].reviews[index].user}}</span> <span class="stars">{{products[pC].reviews[index].stars}}<span class="filled">{{outOf(index)}}</span></span>
               <span class="review">
-                {{products[productCount].reviews[index].text}}
+                {{products[pC].reviews[index].text}}
               </span>
             </p>
             <input id="buy" type="submit" value="Buy Now" @click.stop="productEnded"/>
@@ -176,17 +172,17 @@
               Your Choice
             </h1>
             <div class="item">
-              <img :src="products[productCount].src" />
+              <img :src="products[pC].src" />
               <div class="info">
-                <h2>{{products[productCount].title}}</h2>
-                <h3>€{{products[productCount].price}}</h3>
+                <h2>{{products[pC].title}}</h2>
+                <h3>€{{products[pC].price}}</h3>
               </div>
             </div>
             <div class="item sneak">
-              <img :src="products[productCount+1].src" />
+              <img :src="products[pC+1].src" />
               <div class="info">
-                <h3>{{products[productCount+1].title}}</h3>
-                <h3>€{{products[productCount+1].price}}</h3>
+                <h3>{{products[pC+1].title}}</h3>
+                <h3>€{{products[pC+1].price}}</h3>
               </div>
             </div>
           </div>
@@ -216,10 +212,8 @@
             Before you continue, please read and accept our terms and conditions
           </p>
           <textarea readonly ref="textArea" v-model="conditions.text" :style="{ fontSize: fontSize + 'px', lineHeight: lineHeight + 'px', fontFamily: fontFamily }" @scroll="userScroll"></textarea>
-          <input type="submit" value="Accept and continue" @click.stop="conditionsEnded">
-          <p>
-            {{this.warning}}
-          </p>
+          <input type="submit" value="Accept" @click.stop="conditionsEnded">
+          <p id="warn">{{this.warning}}</p>
         </div>
       </template>
 
@@ -273,7 +267,7 @@ export default {
       picked: '',
       qC: 0,
       showProduct: true,
-      productCount: 0,
+      pC: 1,
       showCaptcha: false,
       captchaCheck: false,
       checkString: '',
@@ -283,7 +277,7 @@ export default {
       fontFamily: 'Museo100-Regular',
       lineHeight: 15,
       popUp: false,
-      videoPop: true,
+      videoPop: false,
       isMinimized: false,
       comeBack: false,
       userInteract: false,
@@ -1150,11 +1144,10 @@ export default {
       this.patienceAdd = setInterval(function () {
         console.log('patience', this.patienceCount)
         this.changes = this.patienceCount + 1
-        // console.log(this.changes)
-      }.bind(this), 10000)
+      }.bind(this), 30000)
     },
     outOf (index) {
-      let amount = 5 - this.products[this.productCount].reviews[index].stars.length
+      let amount = 5 - this.products[this.pC].reviews[index].stars.length
       return Array(amount + 1).join('☆')
     },
     userScroll: _.throttle(function () {
@@ -1193,7 +1186,7 @@ export default {
   },
   computed: {
     totalAmount () {
-      return this.products[this.productCount].price + this.products[this.productCount + 1].price
+      return this.products[this.pC].price + this.products[this.pC + 1].price
     },
     changes: {
       get: function () {
