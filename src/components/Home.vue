@@ -239,18 +239,18 @@
         </div>
       </template>
 
-      <template v-if="popUp">
-        <div class="popup" v-for="popup in popups" v-bind:class="popup.class">
+      <template v-if="showPopUp">
+        <div class="popup" :class="popUpClass">
           <p>
-            {{popup.text}}
+            {{popUpText}}
           </p>
         </div>
       </template>
 
-      <template v-if="videoPop">
+      <template v-if="showVideoPop" >
         <div class="popup video">
           <div class="container embed-responsive">
-            <youtube class="embed-responsive-item" v-cloak :video-id="popupId" :player-vars="{autoplay: 1, rel: 0, modestbranding: 1, fs: 0, showinfo: 0}" @ready="ready" @playing="playing" @ended="popupEnded"></youtube>
+            <youtube v-cloak class="embed-responsive-item" :video-id="popupId" :player-vars="{autoplay: 1, rel: 0, modestbranding: 1, fs: 0, showinfo: 0, end: 30}" @ready="ready" @playing="playing" @ended="popupEnded" ref="pop"></youtube>
           </div>
         </div>
       </template>
@@ -284,11 +284,15 @@ export default {
   data () {
     return {
       msg: '',
-      showVideo: true,
-      videoPop: true,
+      showVideo: false,
+      showVideoPop: false,
       videoId: '5gSjrUzCFqs',
-      popupId: 'x_fS7jtrOdE',
-      showQuestionnaire: false,
+      showPopUp: false,
+      isPlaying: false,
+      popUpClass: '',
+      popupName: 'Really',
+      popupId: '',
+      showQuestionnaire: true,
       textbox: '',
       checked: [],
       picked: '',
@@ -303,7 +307,6 @@ export default {
       fontFamily: 'Museo100-Regular',
       fontSize: 13,
       lineHeight: 15,
-      popUp: false,
       isMinimized: false,
       comeBack: false,
       userInteract: false,
@@ -320,29 +323,64 @@ export default {
           src: '5gSjrUzCFqs'
         },
         {
-          title: 'Are You Sure?',
+          title: 'You Sure',
+          src: 'UTtqh0O73bo'
+        },
+        {
+          title: 'Hurry Up',
+          src: 'ESAqQd3zU-4'
+        },
+        {
+          title: 'Waiting For',
+          src: '1y-YmF0D_M8'
+        },
+        {
+          title: 'Well Done',
+          src: '3N2oCSx8loo'
+        },
+        {
+          title: 'Tick Tock',
+          src: 'eN3_4nO1IG4'
+        },
+        {
+          title: 'Snatched Up',
+          src: '4lHj3MIeIRU'
+        },
+        {
+          title: 'Really',
+          src: 'Kusdj5F8aOg'
+        },
+        {
+          title: 'Need Help',
+          src: 'xnQiHrfvFxM'
+        },
+        {
+          title: 'Bread Gloves',
+          src: 'ESAqQd3zU-4'
+        },
+        {
+          title: 'Good Day',
+          src: 'OnAYGIk0bW4'
+        },
+        {
+          title: 'Excellent Choice',
+          src: 'J2xAoZY7aog'
+        },
+        {
+          title: 'Sure About',
           src: 'x_fS7jtrOdE'
         },
         {
-          title: 'Need Any Help?',
-          src: 'UTtqh0O73bo'
-        }
-      ],
-      popups: [
-        {
-          'title': '',
-          'text': 'Hi 😀  Have a look around! Let us know if you have any questions.',
-          'class': 'invite'
+          title: 'Two Percent',
+          src: 'rWI876feJR4'
         },
         {
-          'title': '',
-          'text': 'Are you sure that\'s the answer you were thinking of?',
-          'class': 'warning'
+          title: 'Ad1',
+          src: 'wNo1AKP8duo'
         },
         {
-          'title': '',
-          'text': 'Free download!',
-          'class': 'freebie'
+          title: 'Ad2',
+          src: 'wNo1AKP8duo'
         }
       ],
       questions: [
@@ -350,6 +388,51 @@ export default {
           q: 'What city do you live in?',
           a: [ 'The Hague', 'Rotterdam', 'Amsterdam', 'Utrecht', 'Eindhoven', 'Other' ],
           type: 'dropdown'
+        },
+        {
+          q: 'What\'s your house number?',
+          a: [ '' ],
+          type: 'textbox'
+        },
+        {
+          q: 'Are you sure that’s correct?',
+          a: [ 'Yes', 'No' ],
+          type: 'option'
+        },
+        {
+          q: 'Are you lying?',
+          a: [ 'Yes', 'No' ],
+          type: 'option'
+        },
+        {
+          q: 'It’s very important that you fill this survey honestly ',
+          a: [ 'Yes I understand', 'No get me out of here' ],
+          type: 'option'
+        },
+        {
+          q: 'Favourite animal?',
+          a: [ 'Cats', 'Dogs', 'Armadillos', 'None' ],
+          type: 'dropdown'
+        },
+        {
+          q: 'Sushi or tacos?',
+          a: [ 'Sushi', 'Tacos' ],
+          type: 'option'
+        },
+        {
+          q: 'Tea or coffee?',
+          a: [ 'Tea', 'Coffee' ],
+          type: 'option'
+        },
+        {
+          q: 'Egg or the chicken?',
+          a: [ 'Egg', 'Chicken', 'Egg and Chicken', 'Hell, idk' ],
+          type: 'option'
+        },
+        {
+          q: 'iPhone or Android?',
+          a: [ 'iPhone', 'Android' ],
+          type: 'option'
         },
         {
           q: 'Pick an aesthetic',
@@ -1067,6 +1150,10 @@ export default {
       this.showVideo = false
       this.showQuestionnaire = true
     },
+    popupEnded () {
+      this.isPlaying = false
+      this.showVideoPop = false
+    },
     checkAnswer (value) {
       if (value === 'option' || value === 'image' || value === 'dropdown' || value === 'dropdown-year') {
         console.log('picked an ', value)
@@ -1149,9 +1236,6 @@ export default {
         this.warning = 'Please read the terms before you continue'
       }
     },
-    sequencePopups () {
-      setTimeout(() => { this.videoPop = true }, 2000)
-    },
     addCount () {
       this.patienceCount++
     },
@@ -1184,12 +1268,25 @@ export default {
         return value
       }
     },
+    twinByName (str) {
+      let vid = this.twins.filter(function (twin) {
+        return twin.title === str
+      })
+      this.popupId = vid[0].src
+      this.showVideoPop = true
+    },
+    launchPopUp (clas, mssg) {
+      this.popUpClass = clas
+      this.popUpText = mssg
+      this.showPopUp = true
+    },
     ready (player) {
       this.player = player
     },
     playing (player) {
       // The player is playing a video.
-      console.log('playing')
+      this.isPlaying = true
+      console.log('playing', this.isPlaying)
     },
     change () {
       // when you change the value, the player will also change.
@@ -1197,7 +1294,6 @@ export default {
       // If `playerVars.autoplay` is 1, `loadVideoById` will be called.
       // If `playerVars.autoplay` is 0, `cueVideoById` will be called.
       console.log('change video ID')
-      this.videoId = this.twins[1].src
     },
     stop () {
       this.player.stopVideo()
@@ -1259,6 +1355,60 @@ export default {
     }
   },
   watch: {
+    // questions
+    qC: function () {
+      if (this.qC === 1) {
+        this.launchPopUp('invite', 'Hi 😀  Have a look around! Let us know if you have any questions.')
+      }
+      if (this.qC === 3) {
+        this.twinByName('Need Help')
+      }
+      if (this.qC === 6) {
+        this.twinByName('Sure About')
+      }
+      if (this.qC === 7) {
+        this.launchPopUp('freebie', 'Get a 2% discount on patience!')
+      }
+      if (this.qC === 10) {
+        this.twinByName('Ad1')
+      }
+      if (this.qC === 12) {
+        this.twinByName('Ad2')
+      }
+      if (this.qC === 14) {
+        this.twinByName('Excellent Choice')
+      }
+      if (this.qC === 15) {
+        this.twinByName('Ad5')
+      }
+      if (this.qC === 16) {
+        this.twinByName('Ad6')
+      }
+      if (this.qC === 18) {
+        this.twinByName('Ad7')
+      }
+      if (this.qC === 20) {
+        this.twinByName('Really')
+      }
+      if (this.qC === 23) {
+        this.twinByName('Hurry Up')
+      }
+      if (this.qC === 27) {
+        this.launchPopUp('warning', 'WARNING. We have detected 2 viruses!!!')
+      }
+      if (this.qC === 29) {
+        this.launchPopUp('freebie', 'Get two free viruses now!')
+      }
+      if (this.qC === 29) {
+        this.twinByName('Ad8')
+      }
+      if (this.qC === 32) {
+        this.twinByName('Snatched Up')
+      }
+      if (this.qC === this.questions.length - 1) {
+        this.twinByName('Well Done')
+      }
+    },
     captcha: function (value) {
       if (this.cC === this.captchas.length) {
         console.log('they are the same', this.cC, this.captchas.length)
