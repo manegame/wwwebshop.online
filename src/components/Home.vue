@@ -1106,14 +1106,6 @@ export default {
           src: './static/captcha.jpg'
         },
         {
-          value: 'not human',
-          src: './static/captcha.jpg'
-        },
-        {
-          value: 'not human',
-          src: './static/captcha.jpg'
-        },
-        {
           value: 'pervert we',
           src: './static/captcha2.png'
         },
@@ -1247,12 +1239,10 @@ export default {
     },
     captchaEnded () {
       if (this.captchaCheck === true) {
-        console.log('next')
         this.showCaptcha = false
         this.showCheckout = true
       } else {
-        console.log('stay')
-        this.warning = 'Try again'
+        this.warning = 'Please try again'
       }
     },
     checkoutEnded () {
@@ -1284,8 +1274,12 @@ export default {
     randomNeg () {
       return -1 * (Math.ceil(Math.random() * 2))
     },
-    setCheck () {
-      return this.captchas[this.cC].value.slice(0, this.randomNeg())
+    setCheck (val) {
+      if (val === 'full') {
+        return this.captchas[this.cC].value
+      } else if (val === 'chop') {
+        return this.captchas[this.cC].value.slice(0, this.randomNeg())
+      }
     },
     startAdd () {
       this.patienceAdd = setInterval(function () {
@@ -1449,23 +1443,25 @@ export default {
       }
     },
     captcha: function (str) {
-      // console.log('stage', str, this.cC)
-      if (this.cC === this.captchas.length - 1) {
-        // console.log('last captcha')
-        this.captchaCheck = true
-      } else {
-        if (str.length <= 1) {
-          // console.log('str.length <=1')
-          this.checkString = this.setCheck()
+      let len = this.captchas.length - 1
+      if (str.length === 1) {
+        this.warning = ''
+        if (this.cC < len) {
+          this.checkString = this.setCheck('chop')
+          console.log('check chop', this.checkString)
+        } else if (this.cC === len) {
+          this.checkString = this.setCheck('full')
+          console.log('check full', this.checkString)
         }
-        if (str === this.checkString) {
-          console.log(this.captchas.length - 1, 'add')
+      }
+      if (str === this.checkString) {
+        if (this.cC < len) {
           this.cC++
           this.captcha = ''
           this.warning = ''
-        } else if (str === this.checkString && this.cC === this.captchas.length) {
-          // console.log('do not add', this.captchas.length - 1)
-          console.log(this.cC, this.captchas.length)
+        } else if (this.cC === len) {
+          this.captchaCheck = true
+          this.warning = ''
         }
       }
     }
