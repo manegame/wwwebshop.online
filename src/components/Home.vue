@@ -287,7 +287,7 @@ export default {
   data () {
     return {
       msg: '',
-      showVideo: false,
+      showVideo: true,
       showVideoPop: false,
       videoId: '5gSjrUzCFqs',
       showPopUp: false,
@@ -302,7 +302,7 @@ export default {
       qC: 0,
       showProduct: false,
       pC: 2,
-      showCaptcha: true,
+      showCaptcha: false,
       captchaCheck: false,
       checkString: '',
       showCheckout: false,

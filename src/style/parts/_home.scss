@@ -166,7 +166,7 @@ h2 {
             border-bottom: $theme-border;
             text-align: left;
             position: relative;
-            overflow-y: hidden;
+            overflow-y: scroll;
             .q {
               color: $black;
               position: absolute;
@@ -460,7 +460,7 @@ h2 {
         cursor: pointer;
         &.warning {
           padding: 10px;
-          left: 2vh;
+          left: 50vh;
           bottom: 5vh;
           background: rgba(249, 60, 10, 0.79);
           font-size: $font-size * 1.5;
@@ -479,7 +479,7 @@ h2 {
         &.freebie {
           padding: 10px;
           left: 2vh;
-          top: calc(10vh + #{$line-height * 2.2});
+          bottom: 2vh;
           background: rgba(10, 249, 55, 0.79);
           font-weight: 700;
           font-size: $font-size * 2;
