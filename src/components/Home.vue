@@ -13,7 +13,9 @@
       <img src="../assets/logo-white@2x.png"/>
         <div class="counter" @mousedown="addCount">
           <img src="../assets/bP$.svg" />
-          <p id="warn">{{warning}}</p>
+          <template v-if="showCheckout">
+            <p id="warn">{{warning}}</p>
+          </template>
           <p id="counter">{{patienceCount}}</p>
         </div>
     </header>
@@ -39,6 +41,7 @@
             <youtube class="embed-responsive-item" v-cloak :video-id="videoId" :player-vars="{autoplay: 1, rel: 0, modestbranding: 1, fs: 0, showinfo: 0}" @ready="ready" @playing="playing" @ended="videoEnded"></youtube>
           </div>
         </div>
+        <input id="survey" type="submit" value="Take The Survey" @click.stop="videoEnded"></button>
       </template>
 
       <!-- Stage 2: Questionnaire -->
@@ -166,7 +169,7 @@
       <template v-if="showCaptcha">
         <div class="main captcha">
           <div class="top">
-            <img class="captcha" :src="this.captchas[cC].src"/>
+            <img class="captcha" :src="captchas[cC].src"/>
           </div>
           <div class="bottom">
             <input type="text" v-model="captcha"/>
@@ -284,7 +287,7 @@ export default {
   data () {
     return {
       msg: '',
-      showVideo: true,
+      showVideo: false,
       showVideoPop: false,
       videoId: '5gSjrUzCFqs',
       showPopUp: false,
@@ -299,7 +302,7 @@ export default {
       qC: 0,
       showProduct: false,
       pC: 2,
-      showCaptcha: false,
+      showCaptcha: true,
       captchaCheck: false,
       checkString: '',
       showCheckout: false,
@@ -310,7 +313,7 @@ export default {
       isMinimized: false,
       comeBack: false,
       userInteract: false,
-      patienceCount: 1000,
+      patienceCount: 0,
       patienceAdd: '',
       parentMsg: '',
       captcha: '',
@@ -1103,6 +1106,14 @@ export default {
           src: './static/captcha.jpg'
         },
         {
+          value: 'not human',
+          src: './static/captcha.jpg'
+        },
+        {
+          value: 'not human',
+          src: './static/captcha.jpg'
+        },
+        {
           value: 'pervert we',
           src: './static/captcha2.png'
         },
@@ -1278,7 +1289,7 @@ export default {
     },
     startAdd () {
       this.patienceAdd = setInterval(function () {
-        console.log('patience', this.patienceCount)
+        // console.log('patience', this.patienceCount)
         this.changes = this.patienceCount + 1
       }.bind(this), 15000)
     },
@@ -1437,19 +1448,23 @@ export default {
         this.twinByName('Well Done')
       }
     },
-    captcha: function (value) {
-      console.log(this.cC)
-      if (this.cC === this.captchas.length) {
-        console.log('they are the same', this.cC, this.captchas.length)
+    captcha: function (str) {
+      // console.log('stage', str, this.cC)
+      if (this.cC === this.captchas.length - 1) {
+        // console.log('last captcha')
         this.captchaCheck = true
       } else {
-        if (value.length <= 1) {
+        if (str.length <= 1) {
+          // console.log('str.length <=1')
           this.checkString = this.setCheck()
         }
-        if (value === this.checkString && this.cC < this.captchas.length) {
+        if (str === this.checkString) {
+          console.log(this.captchas.length - 1, 'add')
           this.cC++
           this.captcha = ''
           this.warning = ''
+        } else if (str === this.checkString && this.cC === this.captchas.length) {
+          // console.log('do not add', this.captchas.length - 1)
           console.log(this.cC, this.captchas.length)
         }
       }
