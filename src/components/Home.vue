@@ -251,7 +251,7 @@
       </template>
 
       <template v-if="showVideoPop" >
-        <div class="popup video">
+        <div class="popup video" :class="popClass">
           <div class="container embed-responsive">
             <youtube v-cloak class="embed-responsive-item" :video-id="popupId" :player-vars="{autoplay: 1, rel: 0, modestbranding: 1, fs: 0, showinfo: 0, end: 30}" @ready="ready" @playing="playing" @ended="popupEnded" ref="pop"></youtube>
           </div>
@@ -290,6 +290,7 @@ export default {
       showVideo: true,
       showVideoPop: false,
       videoId: '5gSjrUzCFqs',
+      popClass: '',
       showPopUp: false,
       isPlaying: false,
       popUpClass: '',
@@ -1187,7 +1188,7 @@ export default {
     },
     checkAnswer (value) {
       if (value === 'option' || value === 'image' || value === 'dropdown' || value === 'dropdown-year') {
-        console.log('picked an ', value)
+        // console.log('picked an ', value)
         this.nextQuestion()
       }
       if (value === 'textbox') {
@@ -1221,7 +1222,7 @@ export default {
     nextQuestion () {
       if (this.qC < this.questions.length - 1) {
         this.qC++
-        console.log('next question' + this.qC, this.questions.length)
+        // console.log('next question' + this.qC, this.questions.length)
       } else {
         this.questionnaireEnded()
       }
@@ -1246,7 +1247,7 @@ export default {
       }
     },
     checkoutEnded () {
-      console.log(this.totalAmount, this.patienceCount)
+      // console.log(this.totalAmount, this.patienceCount)
       if (this.totalAmount >= this.patienceCount) {
         this.warning = 'Insufficiend Funds'
       } else {
@@ -1306,6 +1307,11 @@ export default {
         return twin.title === str
       })
       this.popupId = vid[0].src
+      if (this.popClass === '' || this.popClass === 'one') {
+        this.popClass = 'two'
+      } else {
+        this.popClass = 'one'
+      }
       this.showVideoPop = true
     },
     launchPopUp (clas, mssg) {
@@ -1319,14 +1325,14 @@ export default {
     playing (player) {
       // The player is playing a video.
       this.isPlaying = true
-      console.log('playing', this.isPlaying)
+      // console.log('playing', this.isPlaying)
     },
     change () {
       // when you change the value, the player will also change.
       // If you would like to change `playerVars`, please change it before you change `videoId`.
       // If `playerVars.autoplay` is 1, `loadVideoById` will be called.
       // If `playerVars.autoplay` is 0, `cueVideoById` will be called.
-      console.log('change video ID')
+      // console.log('change video ID')
     },
     stop () {
       this.player.stopVideo()
@@ -1448,10 +1454,10 @@ export default {
         this.warning = ''
         if (this.cC < len) {
           this.checkString = this.setCheck('chop')
-          console.log('check chop', this.checkString)
+          // console.log('check chop', this.checkString)
         } else if (this.cC === len) {
           this.checkString = this.setCheck('full')
-          console.log('check full', this.checkString)
+          // console.log('check full', this.checkString)
         }
       }
       if (str === this.checkString) {

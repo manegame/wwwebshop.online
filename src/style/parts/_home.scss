@@ -470,7 +470,7 @@ h2 {
         &.invite {
           padding: 10px;
           right: 2vh;
-          bottom: 25vh;
+          bottom: 2vh;
           background: rgba(10, 213, 249, 0.79);
           font-weight: 300;
           font-size: $font-size * 1.5;
@@ -487,10 +487,15 @@ h2 {
         }
         &.video {
           position: absolute;
-          right: 2vw;
           top: 12vh;
           width: 300px;
           height: 170px;
+          &.one {
+            right: 2vw;
+          }
+          &.two {
+            left: 2vw;
+          }
         }
         transition: all .3s ease;
       }
