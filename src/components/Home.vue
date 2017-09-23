@@ -284,7 +284,7 @@ export default {
   data () {
     return {
       msg: '',
-      showVideo: false,
+      showVideo: true,
       showVideoPop: false,
       videoId: '5gSjrUzCFqs',
       showPopUp: false,
@@ -292,7 +292,7 @@ export default {
       popUpClass: '',
       popupName: 'Really',
       popupId: '',
-      showQuestionnaire: true,
+      showQuestionnaire: false,
       textbox: '',
       checked: [],
       picked: '',
@@ -310,7 +310,7 @@ export default {
       isMinimized: false,
       comeBack: false,
       userInteract: false,
-      patienceCount: 0,
+      patienceCount: 1000,
       patienceAdd: '',
       parentMsg: '',
       captcha: '',
@@ -380,6 +380,34 @@ export default {
         },
         {
           title: 'Ad2',
+          src: 'wNo1AKP8duo'
+        },
+        {
+          title: 'Ad3',
+          src: 'wNo1AKP8duo'
+        },
+        {
+          title: 'Ad4',
+          src: 'wNo1AKP8duo'
+        },
+        {
+          title: 'Ad5',
+          src: 'wNo1AKP8duo'
+        },
+        {
+          title: 'Ad6',
+          src: 'wNo1AKP8duo'
+        },
+        {
+          title: 'Ad7',
+          src: 'wNo1AKP8duo'
+        },
+        {
+          title: 'Ad8',
+          src: 'wNo1AKP8duo'
+        },
+        {
+          title: 'Ad9',
           src: 'wNo1AKP8duo'
         }
       ],
@@ -1160,7 +1188,7 @@ export default {
         this.nextQuestion()
       }
       if (value === 'textbox') {
-        if (this.textbox.length <= 2) {
+        if (this.textbox.length <= 0) {
           this.warning = 'Please elaborate'
         } else {
           this.warning = ''
@@ -1197,15 +1225,16 @@ export default {
     },
     questionnaireEnded () {
       this.showQuestionnaire = false
+      this.qC = 0
       this.pC = this.randomProduct()
       this.showProduct = true
+      this.showPopUp = false
     },
     productEnded () {
       this.showProduct = false
       this.showCaptcha = true
     },
     captchaEnded () {
-      console.log('chceking')
       if (this.captchaCheck === true) {
         console.log('next')
         this.showCaptcha = false
@@ -1230,8 +1259,7 @@ export default {
     },
     conditionsEnded () {
       if (this.allowEnd === true) {
-        this.showConditions = false
-        this.showVideo = true
+        location.reload()
       } else {
         this.warning = 'Please read the terms before you continue'
       }
@@ -1349,8 +1377,8 @@ export default {
       get: function () {
         return this.patienceCount
       },
-      set: function (v) {
-        this.patienceCount = v
+      set: function () {
+        return this.patienceCount
       }
     }
   },
@@ -1410,6 +1438,7 @@ export default {
       }
     },
     captcha: function (value) {
+      console.log(this.cC)
       if (this.cC === this.captchas.length) {
         console.log('they are the same', this.cC, this.captchas.length)
         this.captchaCheck = true
@@ -1417,7 +1446,7 @@ export default {
         if (value.length <= 1) {
           this.checkString = this.setCheck()
         }
-        if (value === this.checkString) {
+        if (value === this.checkString && this.cC < this.captchas.length) {
           this.cC++
           this.captcha = ''
           this.warning = ''
